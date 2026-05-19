@@ -1,0 +1,9 @@
+## I do have one feature suggestion - it would be great if images could be added as a group rather than one at a time.
+
+unlock feature :(Lightbox tor bar(left)) zoomIn, zoomOut;
+Lightbox top bar(right):  SlideShows, Thumbnails, Close 
+Lightbox custom color you can set;
+Caption Typo and color you can set;
+
+Player Controls Restart, Play, Rewind, Fast-forward, Progress change this options;
+Close icon you can set icon size, Colors and Hover Colors;  

@@ -1,0 +1,31 @@
+#lbb_pdfModal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 9999;
+
+    .pdf-modal-content {
+        position: relative;
+        width: 70%;
+        height: 90%;
+        margin: 3% auto;
+        background: #1d1d1e;
+        padding: 25px 0px;
+
+        iframe {
+            width: 100%;
+            height: 100%;
+        }
+
+        .pdf-close {
+            position: absolute;
+            top: -38px;
+            right: -23px;
+            font-size: 37px;
+            cursor: pointer;
+            z-index: 10;
+            color: #fff;
+        }
+    }
+}

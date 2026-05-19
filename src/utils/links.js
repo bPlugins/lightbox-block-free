@@ -1,0 +1,1 @@
+export const placeholderImg = 'https://bblockswp.com/wp-content/demo/img/green-hill.jpg';
