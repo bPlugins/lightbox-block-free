@@ -1,23 +1,23 @@
 <?php
 /**
- * Plugin Name: Lightbox block
+ * Plugin Name: Lightbox block free 
  * Description: Lightbox block is an excellent choice for your WordPress Lightbox Block.
  * Version: 1.1.44
  * Author: bPlugins
  * Author URI: http://bplugins.com
  * License: GPLv3
  * License URI: https://www.gnu.org/licenses/gpl-3.0.txt
- * Text Domain: lightbox
+ * Text Domain: lightbox-block
  */
 
 // ABS PATH
 if (!defined('ABSPATH')) {exit;}
  
     // Constant
-    define( 'LBB_PLUGIN_VERSION', isset( $_SERVER['HTTP_HOST'] ) && 'localhost' === $_SERVER['HTTP_HOST'] ? time() : '1.1.44' );
-    define('LBB_ASSETS_DIR', plugin_dir_url(__FILE__) . 'assets/');
-    define('LBB_DIR_URL', plugin_dir_url(__FILE__));
-    define('LBB_DIR_PATH', plugin_dir_path(__FILE__));
+    define( 'LBB_LIGHTBOX_PLUGIN_VERSION', isset( $_SERVER['HTTP_HOST'] ) && 'localhost' === $_SERVER['HTTP_HOST'] ? time() : '1.1.44' );
+    define('LBB_LIGHTBOX_ASSETS_DIR', plugin_dir_url(__FILE__) . 'assets/');
+    define('LBB_LIGHTBOX_DIR_URL', plugin_dir_url(__FILE__));
+    define('LBB_LIGHTBOX_DIR_PATH', plugin_dir_path(__FILE__));
     
     // Create a helper function for easy SDK access.
     if (!function_exists('lbb_fs')) {
@@ -27,7 +27,7 @@ if (!defined('ABSPATH')) {exit;}
 
             if (!isset($lbb_fs)) {
                  
-                require_once dirname(__FILE__) . '/freemius-lite/start.php';
+                require_once dirname( __FILE__ ) . '/vendor/freemius-lite/start.php';
 
                 $lbbConfig = (array(
                     'id' => '13492',
@@ -54,8 +54,8 @@ if (!defined('ABSPATH')) {exit;}
     }
 
     // Light Box
-    if (!class_exists('LBBPlugin')) {
-        class LBBPlugin
+    if (!class_exists('LBB_Lightbox_Plugin')) {
+        class LBB_Lightbox_Plugin
         {
             public function __construct(){
                 $this->load_classes();
@@ -67,8 +67,8 @@ if (!defined('ABSPATH')) {exit;}
             }
 
             public function lbb_custom_popup(){
-                wp_enqueue_script('lbb-custom-popup',  LBB_DIR_URL . 'build/custom-popup.js', [], LBB_PLUGIN_VERSION);
-                wp_enqueue_style( 'lbb-custom-popup', LBB_DIR_URL. 'build/custom-popup.css', [], LBB_PLUGIN_VERSION );
+                wp_enqueue_script('lbb-custom-popup',  LBB_LIGHTBOX_DIR_URL . 'build/custom-popup.js', [], LBB_LIGHTBOX_PLUGIN_VERSION);
+                wp_enqueue_style( 'lbb-custom-popup', LBB_LIGHTBOX_DIR_URL. 'build/custom-popup.css', [], LBB_LIGHTBOX_PLUGIN_VERSION );
             }
 
             function onInit(){
@@ -76,19 +76,19 @@ if (!defined('ABSPATH')) {exit;}
             }
 
             public function enqueueBlockAssets(){
-                wp_enqueue_style( 'fontAwesome', LBB_ASSETS_DIR . 'css/font-awesome.min.css', [], '6.5.2' ); // Icon
+                wp_enqueue_style( 'fontAwesome', LBB_LIGHTBOX_ASSETS_DIR . 'css/font-awesome.min.css', [], '6.5.2' ); // Icon
                 
-                wp_register_style('fancyapps-carousel', LBB_ASSETS_DIR . 'css/carousel.css', [], '5.0');
-                wp_register_style('fancyapps-thum', LBB_ASSETS_DIR . 'css/carousel-thum.css', [], '5.0');
-                wp_register_style('lbb-shortcode', LBB_ASSETS_DIR . 'css/shortcode.css', [], LBB_PLUGIN_VERSION);
+                wp_register_style('fancyapps-carousel', LBB_LIGHTBOX_ASSETS_DIR . 'css/carousel.css', [], '5.0');
+                wp_register_style('fancyapps-thum', LBB_LIGHTBOX_ASSETS_DIR . 'css/carousel-thum.css', [], '5.0');
+                wp_register_style('lbb-shortcode', LBB_LIGHTBOX_ASSETS_DIR . 'css/shortcode.css', [], LBB_LIGHTBOX_PLUGIN_VERSION);
 
-                wp_register_style('lbb-plyr-style', LBB_ASSETS_DIR . 'css/plyr.min.css', [], LBB_PLUGIN_VERSION);
+                wp_register_style('lbb-plyr-style', LBB_LIGHTBOX_ASSETS_DIR . 'css/plyr.min.css', [], LBB_LIGHTBOX_PLUGIN_VERSION);
 
-                wp_register_script('fancyapps-carousel', LBB_ASSETS_DIR . 'js/carousel.js', [], '5.0');
-                wp_register_script('fancyapps-thum', LBB_ASSETS_DIR . 'js/carousel-thum.js', [], '5.0');
+                wp_register_script('fancyapps-carousel', LBB_LIGHTBOX_ASSETS_DIR . 'js/carousel.js', [], '5.0');
+                wp_register_script('fancyapps-thum', LBB_LIGHTBOX_ASSETS_DIR . 'js/carousel-thum.js', [], '5.0');
 
-                wp_register_script('lbb-plyr-script', LBB_ASSETS_DIR . 'js/plyr.min.js', [], LBB_PLUGIN_VERSION);
-                wp_register_script('lbb-shortcode', LBB_ASSETS_DIR . 'js/shortcode.js', [], LBB_PLUGIN_VERSION);
+                wp_register_script('lbb-plyr-script', LBB_LIGHTBOX_ASSETS_DIR . 'js/plyr.min.js', [], LBB_LIGHTBOX_PLUGIN_VERSION);
+                wp_register_script('lbb-shortcode', LBB_LIGHTBOX_ASSETS_DIR . 'js/shortcode.js', [], LBB_LIGHTBOX_PLUGIN_VERSION);
 
                 wp_localize_script('lbb-plyr-script', 'bpllbMediaUrlId', [
                     'ajaxUrl' => admin_url('admin-ajax.php'),
@@ -135,11 +135,11 @@ if (!defined('ABSPATH')) {exit;}
 
                 $dashboardLink = admin_url( 'edit.php?post_type=lbb&page=lightbox-block' );
 
-                $links['dashboard'] = sprintf( '<a href="%s" style="%s" target="__blank">%s</a>', $dashboardLink, 'color:#4527a4;font-weight:bold', __( 'Dashboard!', 'slider' ) );
+                $links['dashboard'] = sprintf( '<a href="%s" style="%s" target="__blank">%s</a>', $dashboardLink, 'color:#4527a4;font-weight:bold', __( 'Dashboard!', 'lightbox-block' ) );
             }
  
             return $links;
         }
         }
-        new LBBPlugin;
+        new LBB_Lightbox_Plugin;
     }

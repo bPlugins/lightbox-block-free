@@ -5,9 +5,9 @@ import { adminUrl } from '../../utils/functions';
 const MarketingBanner = () => (
 	<div className="marketing">
 		<div className="marketing-inner">
-			<div className="marketing-badge">{__('Premium', 'lightbox')}</div>
+			<div className="marketing-badge">{__('Premium', 'lightbox-block')}</div>
 			<p className="marketing-headline">
-				{__('Unlock more media types with', 'lightbox')} <strong>{__('Lightbox Block Pro', 'lightbox')}</strong>
+				{__('Unlock more media types with', 'lightbox-block')} <strong>{__('Lightbox Block Pro', 'lightbox-block')}</strong>
 			</p>
 			<div className="marketing-types">
 				<span className="marketing-type pdf">{pdfIcon(16)} PDF</span>
@@ -16,7 +16,7 @@ const MarketingBanner = () => (
 				<span className="marketing-type html">{htmlIcon(16)} HTML</span>
 			</div>
 			<a className="marketing-cta" href={adminUrl()} target="_blank" rel="noopener noreferrer">
-				{__('Upgrade to Pro', 'lightbox')} →
+				{__('Upgrade to Pro', 'lightbox-block')} →
 			</a>
 		</div>
 	</div>

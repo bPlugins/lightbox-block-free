@@ -22,7 +22,7 @@ const UploadGallery = ({ setAttributes, items }) => {
                 setAttributes({ items: newItems });
             }} render={({ open }) => (
                 <Button onClick={open} variant="primary" className='components-button is-primary'>
-                    {uploadIcon} {__('Upload Images', 'lightbox')}
+                    {uploadIcon} {__('Upload Images', 'lightbox-block')}
                 </Button>
             )} />
         </MediaUploadCheck>

@@ -41,15 +41,15 @@ const General = ({ attributes, setAttributes, isBtnType, updateAttr }) => {
         <HelpPanel slug="lightbox-block" docsLink="https://bplugins.com/docs/lightbox-block" />
 
         {/* Select Lightbox Type  */}
-        <PanelBody className='bPlPanelBody' title={__('Lightbox', 'lightbox')} initialOpen={true}>
+        <PanelBody className='bPlPanelBody' title={__('Lightbox', 'lightbox-block')} initialOpen={true}>
 
-            <Label className="mt10 mb10">{__('Gallery Type', 'lightbox')}</Label>
+            <Label className="mt10 mb10">{__('Gallery Type', 'lightbox-block')}</Label>
             <BtnGroup value={lightboxType} onChange={(val) => { setAttributes({ lightboxType: val }) }} options={lbType} isIcon={true} size='default' />
             <MarketingBanner />
 
             {/* Check button and 1 gether than  */}
             {'button' == lightboxType && items.length > 1 && <>
-                <Button className='removeItem removeAllitem' onClick={() => setAttributes({ items: [items[0]] })}> <Dashicon icon='trash' size={18} />{__('Delete Gallery Data', 'lightbox')}</Button>
+                <Button className='removeItem removeAllitem' onClick={() => setAttributes({ items: [items[0]] })}> <Dashicon icon='trash' size={18} />{__('Delete Gallery Data', 'lightbox-block')}</Button>
             </>}
         </PanelBody>
 
@@ -79,16 +79,16 @@ const General = ({ attributes, setAttributes, isBtnType, updateAttr }) => {
         {/* lightbox type button than Hide Layout Panel */}
         {
             !isBtnType &&
-            <PanelBody title={__('Layout', 'lightbox')} className="bPlPanelBody" initialOpen={false} >
-                <ToggleControl label={__('Showing the icon', 'lightbox')} checked={galleryIcon} onChange={(val) => { setAttributes({ galleryIcon: val }); }} />
+            <PanelBody title={__('Layout', 'lightbox-block')} className="bPlPanelBody" initialOpen={false} >
+                <ToggleControl label={__('Showing the icon', 'lightbox-block')} checked={galleryIcon} onChange={(val) => { setAttributes({ galleryIcon: val }); }} />
 
-                <SelectControl label={__('Layout', 'lightbox')} className='mt10' labelPosition="side" value={layout} options={layoutOpt} onChange={(val) => { setAttributes({ layout: val }) }} __nextHasNoMarginBottom />
+                <SelectControl label={__('Layout', 'lightbox-block')} className='mt10' labelPosition="side" value={layout} options={layoutOpt} onChange={(val) => { setAttributes({ layout: val }) }} __nextHasNoMarginBottom />
 
                 {
                     layout !== "slider" && <>
                         {/* column define option  */}
                         <PanelRow className='mt20'>
-                            <Label mt='0'>{__('Columns:', 'lightbox')}</Label>
+                            <Label mt='0'>{__('Columns:', 'lightbox-block')}</Label>
                             <BDevice device={device} onChange={val => setDevice(val)} />
                         </PanelRow>
                         <RangeControl value={columns[device]} onChange={val => { setAttributes({ columns: { ...columns, [device]: val } }) }} min={1} max={6} step={1} beforeIcon='grid-view' />
@@ -96,26 +96,26 @@ const General = ({ attributes, setAttributes, isBtnType, updateAttr }) => {
                 }
 
                 {/* column Gap  */}
-                <UnitControl className='mt20' label={__('Column Gap:', 'lightbox')} labelPosition='left' value={columnGap} onChange={val => setAttributes({ columnGap: val })} units={[pxUnit(30), perUnit(3), emUnit(2)]} isResetValueOnUnitChange={true} />
+                <UnitControl className='mt20' label={__('Column Gap:', 'lightbox-block')} labelPosition='left' value={columnGap} onChange={val => setAttributes({ columnGap: val })} units={[pxUnit(30), perUnit(3), emUnit(2)]} isResetValueOnUnitChange={true} />
                 {
                     layout !== "slider" &&
-                    <UnitControl className='mt20' label={__('Row Gap:', 'lightbox')} labelPosition='left' value={rowGap} onChange={val => setAttributes({ rowGap: val })} units={[pxUnit(40), perUnit(3), emUnit(2.5)]} isResetValueOnUnitChange={true} />
+                    <UnitControl className='mt20' label={__('Row Gap:', 'lightbox-block')} labelPosition='left' value={rowGap} onChange={val => setAttributes({ rowGap: val })} units={[pxUnit(40), perUnit(3), emUnit(2.5)]} isResetValueOnUnitChange={true} />
                 }
-                <Notice status='premium' isIcon={true}>{__('Slider Layout are available in the Premium version.', 'b-slider')}</Notice>
+                <Notice status='premium' isIcon={true}>{__('Slider Layout are available in the Premium version.', 'lightbox-block')}</Notice>
             </PanelBody>
         }
 
 
         {
-            layout !== "masonry" && <PanelBody className='bPlPanelBody' title={<> {__('Image Aspect Ratio', 'b-slider')}<PremiumBadge />
+            layout !== "masonry" && <PanelBody className='bPlPanelBody' title={<> {__('Image Aspect Ratio', 'lightbox-block')}<PremiumBadge />
             </>} initialOpen={false}>
-                <PremiumPanel title={__('Ratio', 'b-slider')} description={__('Image Aspect Ratio(Landscape, Square, Potrait, Vertical and Horizontal) are available in the Premium version.', 'b-slider')} pricingUrl={adminUrl()} demoUrl='https://bplugins.com/products/lightbox-block/#demos' />
+                <PremiumPanel title={__('Ratio', 'lightbox-block')} description={__('Image Aspect Ratio(Landscape, Square, Potrait, Vertical and Horizontal) are available in the Premium version.', 'lightbox-block')} pricingUrl={adminUrl()} demoUrl='https://bplugins.com/products/lightbox-block/#demos' />
             </PanelBody>}
 
         {/* lightbox type button than show button settings  */}
         {
-            isBtnType && <PanelBody title={__('Button', 'lightbox')} className="bPlPanelBody" initialOpen={false} >
-                <Label className='mb5'>{__('Text', 'lightbox')} </Label>
+            isBtnType && <PanelBody title={__('Button', 'lightbox-block')} className="bPlPanelBody" initialOpen={false} >
+                <Label className='mb5'>{__('Text', 'lightbox-block')} </Label>
                 <TextControl value={button.text} labelPosition='top' onChange={val => updateAttr('button', 'text', val)} />
 
                 <IconControl className='mt20' value={button.icon} onChange={val => updateAttr('button', 'icon', val)} isSize={false} isColor={false} />
@@ -123,9 +123,9 @@ const General = ({ attributes, setAttributes, isBtnType, updateAttr }) => {
         }
 
         {
-            lightboxType !== 'button' && <PanelBody className='bPlPanelBody' title={<> {__('Gallery', 'b-slider')}<PremiumBadge />
+            lightboxType !== 'button' && <PanelBody className='bPlPanelBody' title={<> {__('Gallery', 'lightbox-block')}<PremiumBadge />
             </>} initialOpen={false}>
-                <PremiumPanel title={__('Gallery', 'b-slider')} description={__('Show Caption, Show Overlay and lightbox Caption are available in the Premium version.', 'b-slider')} pricingUrl={adminUrl()} demoUrl='https://bplugins.com/products/lightbox-block/#demos' />
+                <PremiumPanel title={__('Gallery', 'lightbox-block')} description={__('Show Caption, Show Overlay and lightbox Caption are available in the Premium version.', 'lightbox-block')} pricingUrl={adminUrl()} demoUrl='https://bplugins.com/products/lightbox-block/#demos' />
             </PanelBody>}
 
         <AdvertiseCard planLink={adminUrl()} />

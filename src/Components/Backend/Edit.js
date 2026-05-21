@@ -62,14 +62,14 @@ const Edit = props => {
 				<div className='lightboxlayout'>
 
 					<div className="media-lightbox">
-						<h2 className="title">{__('Select a lightbox type', 'lightbox')}</h2>
-						<p className="subtitle">{__('Open any media type in a beautiful lightbox', 'lightbox')}</p>
+						<h2 className="title">{__('Select a lightbox type', 'lightbox-block')}</h2>
+						<p className="subtitle">{__('Open any media type in a beautiful lightbox', 'lightbox-block')}</p>
 						<div className="cards">
 							{
 								lightbox_type?.map((lb_type, index) => {
 
 									return <div key={index} onClick={() => checkPro(lb_type)} className={`media-card ${lb_type.class}`} >
-										{lb_type.status && <div className="new-status"> {__('New', 'lightbox')} </div>}
+										{lb_type.status && <div className="new-status"> {__('New', 'lightbox-block')} </div>}
 										{lb_type.icon}
 										<h3>{lb_type.title}</h3>
 										<p>{lb_type?.desc}</p>

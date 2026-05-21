@@ -19,37 +19,37 @@ const Style = ({ attributes, setAttributes, updateAttr, isBtnType }) => {
 
     return <>  {
         'button' !== lightboxType && <>
-            <PanelBody className='bPlPanelBody lbbPanelBody' title={__('Gallery Item', 'lightbox')} initialOpen={false}>
+            <PanelBody className='bPlPanelBody lbbPanelBody' title={__('Gallery Item', 'lightbox-block')} initialOpen={false}>
                 {/* button border  */}
-                <Label>{__('Border', 'lightbox')}</Label>
+                <Label>{__('Border', 'lightbox-block')}</Label>
                 <BorderControl className="mb20" value={imgBorder} onChange={(value) => setAttributes({ imgBorder: value })}
                 />
 
-                <Notice status='premium' isIcon={true}>{__('Border Radius, Hover Effect are available in the Premium version.', 'lightbox')}</Notice>
+                <Notice status='premium' isIcon={true}>{__('Border Radius, Hover Effect are available in the Premium version.', 'lightbox-block')}</Notice>
             </PanelBody>
         </>
     }
         {((lightboxType === 'gallery' && items.some(item => item.type === "video")) || lightboxType === 'video') &&
-            <PanelBody className='bPlPanelBody' title={<> {__('Player', 'b-slider')}<PremiumBadge />
+            <PanelBody className='bPlPanelBody' title={<> {__('Player', 'lightbox-block')}<PremiumBadge />
             </>} initialOpen={false}>
-                <PremiumPanel title={__('Controls Color', 'b-slider')} description={__('Player controls are available in the Premium version.', 'b-slider')} pricingUrl={adminUrl()} demoUrl='https://bplugins.com/products/lightbox-block/#demos' />
+                <PremiumPanel title={__('Controls Color', 'lightbox-block')} description={__('Player controls are available in the Premium version.', 'lightbox-block')} pricingUrl={adminUrl()} demoUrl='https://bplugins.com/products/lightbox-block/#demos' />
             </PanelBody>}
 
         {
-            isBtnType && <PanelBody className='bPlPanelBody lbbPanelBody' title={__('Button', 'lightbox')} initialOpen={true}>
+            isBtnType && <PanelBody className='bPlPanelBody lbbPanelBody' title={__('Button', 'lightbox-block')} initialOpen={true}>
                 {/* button width height  */}
                 <div className="lbbWHControl">
                     {/* Widht  */}
-                    <UnitControl label={__('Width', 'lightbox')} className='' value={btnWidth}
+                    <UnitControl label={__('Width', 'lightbox-block')} className='' value={btnWidth}
                         onChange={(val) => { setAttributes({ btnWidth: val }) }} units={[pxUnit(10), perUnit(100)]} onUnitChange="" isUnitSelectTabbable />
                     {/* Height 	 */}
-                    <UnitControl label={__('Height', 'lightbox')} className='' value={btnHeight}
+                    <UnitControl label={__('Height', 'lightbox-block')} className='' value={btnHeight}
                         onChange={(val) => { setAttributes({ btnHeight: val }) }} units={[pxUnit(10), perUnit(100)]} onUnitChange="" isUnitSelectTabbable />
                 </div>
 
                 {/* Button Style  */}
                 <PanelRow className='mt20 mb20'>
-                    <Label mt='0' mb='0'>{__('Style:', 'lightbox')}</Label>
+                    <Label mt='0' mb='0'>{__('Style:', 'lightbox-block')}</Label>
                     <BtnGroup value={btnStyle}
                         onChange={val => {
 
@@ -72,7 +72,7 @@ const Style = ({ attributes, setAttributes, updateAttr, isBtnType }) => {
                         options={btnSopt} isIcon={false} />
                 </PanelRow>
 
-                <SelectControl label={__('Type', 'lightbox')} labelPosition="side" value={btnType} options={btnTypeOpt} onChange={val => {
+                <SelectControl label={__('Type', 'lightbox-block')} labelPosition="side" value={btnType} options={btnTypeOpt} onChange={val => {
                     const radius = val === 'circle' ? '50%' : '3px';
                     const pillRadius = val === 'pill' ? '100px' : '3px';
                     const pillTBPadding = val === 'pill' ? '10px' : '8px';
@@ -119,36 +119,36 @@ const Style = ({ attributes, setAttributes, updateAttr, isBtnType }) => {
                 }} />
 
                 <PanelRow className='mt20'>
-                    <Label mt='0' mb='0'>{__('Align:', 'lightbox')}</Label>
+                    <Label mt='0' mb='0'>{__('Align:', 'lightbox-block')}</Label>
                     <BtnGroup value={btnAlign} onChange={val => setAttributes({ btnAlign: val })} options={aligns} isIcon={true} />
                 </PanelRow>
 
                 {/* Typography  */}
-                <Typography className='' label={__('Typography:', 'lightbox')} value={btnTypo} isFamily={false} onChange={val => { setAttributes({ btnTypo: val }) }} defaults={{ fontSize: 18 }} produce={produce} />
+                <Typography className='' label={__('Typography:', 'lightbox-block')} value={btnTypo} isFamily={false} onChange={val => { setAttributes({ btnTypo: val }) }} defaults={{ fontSize: 18 }} produce={produce} />
 
                 {/* color */}
-                <ColorsControl className='' label={__('Colors', 'lightbox')} value={btnColors} onChange={val => setAttributes({ btnColors: val })} defaults={{ color: '#4527a4', bg: '#fff' }} />
+                <ColorsControl className='' label={__('Colors', 'lightbox-block')} value={btnColors} onChange={val => setAttributes({ btnColors: val })} defaults={{ color: '#4527a4', bg: '#fff' }} />
 
                 {/* Hover color  */}
-                <ColorsControl label={__('Hover Colors', 'lightbox')} className="mb15" value={btnHovColors} onChange={val => setAttributes({ btnHovColors: val })} defaults={{ color: '#4527a4', bg: '#fff' }} />
+                <ColorsControl label={__('Hover Colors', 'lightbox-block')} className="mb15" value={btnHovColors} onChange={val => setAttributes({ btnHovColors: val })} defaults={{ color: '#4527a4', bg: '#fff' }} />
 
                 {/* Padding */}
-                <BoxControl label={__("Padding", 'lightbox')} values={btnPadding} onChange={val => setAttributes({ btnPadding: val })} resetValues={{ top: "8px", right: "15px", bottom: "8px", left: "15px" }} />
+                <BoxControl label={__("Padding", 'lightbox-block')} values={btnPadding} onChange={val => setAttributes({ btnPadding: val })} resetValues={{ top: "8px", right: "15px", bottom: "8px", left: "15px" }} />
 
                 {/* button border  */}
-                <Label>{__('Border', 'lightbox')}</Label>
+                <Label>{__('Border', 'lightbox-block')}</Label>
                 <BorderControl className="mb20" value={btnBorder} onChange={(value) => setAttributes({ btnBorder: value })}
                 />
 
                 {/* border radius  */}
-                <BoxControl label={__('Border Radius', 'lightbox')} values={btnRadius} onChange={val => setAttributes({ btnRadius: val })} resetValues={{
+                <BoxControl label={__('Border Radius', 'lightbox-block')} values={btnRadius} onChange={val => setAttributes({ btnRadius: val })} resetValues={{
                     top: "3px", right: "3px", bottom: "3px", left: "3px"
                 }}
                 />
 
                 {/* Icon Space */}
                 {button.icon.class &&
-                    <UnitControl label={__('Space between icon & text', 'lightbox')} className='' value={btnSpaceBetween} onChange={(val) => { setAttributes({ btnSpaceBetween: val }) }}
+                    <UnitControl label={__('Space between icon & text', 'lightbox-block')} className='' value={btnSpaceBetween} onChange={(val) => { setAttributes({ btnSpaceBetween: val }) }}
                         units={[pxUnit(10)]} />
                 }
             </PanelBody>
@@ -157,14 +157,14 @@ const Style = ({ attributes, setAttributes, updateAttr, isBtnType }) => {
 
 
 
-        <PanelBody className='bPlPanelBody lbbPanelBody' title={__('Close Icon', 'lightbox')} initialOpen={false}>
+        <PanelBody className='bPlPanelBody lbbPanelBody' title={__('Close Icon', 'lightbox-block')} initialOpen={false}>
             {/* column define option  */}
             <PanelRow className='mt20'>
-                <Label mt='0'>{__('Size:', 'lightbox')}</Label>
+                <Label mt='0'>{__('Size:', 'lightbox-block')}</Label>
                 <BDevice device={device} onChange={val => setDevice(val)} />
             </PanelRow>
 
-            <RangeControl label={__('', 'slider')} value={popupTheme?.closeIconSize?.[device]}
+            <RangeControl label={__('', 'lightbox-block')} value={popupTheme?.closeIconSize?.[device]}
                 onChange={val => {
                     setAttributes({
                         popupTheme: {
@@ -178,14 +178,14 @@ const Style = ({ attributes, setAttributes, updateAttr, isBtnType }) => {
                 }} min={10} max={100} step={1} beforeIcon='grid-view' />
 
             {/* color */}
-            <ColorsControl className='' label={__('Colors', 'lightbox')} value={closeIconColors} onChange={val => updateAttr('popupTheme', 'closeIconColors', val)} />
+            <ColorsControl className='' label={__('Colors', 'lightbox-block')} value={closeIconColors} onChange={val => updateAttr('popupTheme', 'closeIconColors', val)} />
 
-            <ColorsControl className='' label={__('Hover Colors', 'lightbox')} value={closeIconHColor} onChange={val => updateAttr('popupTheme', 'closeIconHColor', val)} />
+            <ColorsControl className='' label={__('Hover Colors', 'lightbox-block')} value={closeIconHColor} onChange={val => updateAttr('popupTheme', 'closeIconHColor', val)} />
         </PanelBody>
 
         {
-            layout === "slider" && <PanelBody className='bPlPanelBody lbbPanelBody' title={__('Arrow', 'lightbox')} initialOpen={false}>
-                <ColorsControl label={__('Colors', 'lightbox')} value={slider?.arrowColors} className="mt10" onChange={val => updateAttr('slider', 'arrowColors', val)} />
+            layout === "slider" && <PanelBody className='bPlPanelBody lbbPanelBody' title={__('Arrow', 'lightbox-block')} initialOpen={false}>
+                <ColorsControl label={__('Colors', 'lightbox-block')} value={slider?.arrowColors} className="mt10" onChange={val => updateAttr('slider', 'arrowColors', val)} />
             </PanelBody>
         }
 

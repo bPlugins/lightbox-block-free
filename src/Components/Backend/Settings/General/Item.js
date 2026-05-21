@@ -2,7 +2,7 @@ import { __ } from '@wordpress/i18n';
 import { SelectControl, TextControl, ToggleControl } from '@wordpress/components';
 import { produce } from 'immer';
 
-import { Label, InlineMediaUpload, InlineDetailMediaUpload, CustomCodeEditor } from '../../../../../../bpl-tools/Components';
+import { Label, InlineMediaUpload, InlineDetailMediaUpload, CustomCodeEditor, Notice } from '../../../../../../bpl-tools/Components';
 import { SelectControlPro } from '../../../../../../bpl-tools/ProControls';
 import { contentType } from '../../../../utils/options';
 import { checkType, checkUrlImage, isAudioVideoOrYouTube, isHtml, isPdf, isWebsite } from '../../../../utils/functions';
@@ -183,7 +183,7 @@ const Item = ({ attributes, setAttributes, arrKey, index, setActiveIndex = false
 
     return <>
         {
-            (lightboxType === "gallery" || lightboxType === "button") && <SelectControl label={__('Content Type', 'lightbox')} labelPosition="side" value={type} options={contentType} onChange={val => {
+            (lightboxType === "gallery" || lightboxType === "button") && <> <SelectControl label={__('Content Type', 'lightbox-block')} labelPosition="side" value={type} options={contentType} onChange={val => {
                 const newItems = produce(items, draft => {
                     draft[index]['type'] = val;
                     // draft[index]['content'] = 'content' === val ? '<!-- wp:paragraph --><!-- /wp:paragraph -->' : val === 'image' ? items[index]['thumbnail'] : '';
@@ -198,12 +198,15 @@ const Item = ({ attributes, setAttributes, arrKey, index, setActiveIndex = false
                     }
                 });
                 setAttributes({ items: newItems });
-            }} __nextHasNoMarginBottom />}
+            }} __nextHasNoMarginBottom />
+                <Notice status='premium' isIcon={true}>{__('Pdf, Iframe, YouTube and HTML content type are available in the Premium version.', 'lightbox-block')}</Notice>
+            </>
+        }
 
         {/* Check than add thumbnail or button  */}
         {!('image' === type && 'gallery' === lightboxType) ?
             <>
-                <Label>{__('Thumbnail:', 'lightbox')}</Label>
+                <Label>{__('Thumbnail:', 'lightbox-block')}</Label>
 
                 <InlineDetailMediaUpload value={{ url: thumbnail, caption: thumbCaption }} types={['image']} onChange={val => {
                     const newItem = produce(items, draft => {
@@ -217,12 +220,12 @@ const Item = ({ attributes, setAttributes, arrKey, index, setActiveIndex = false
                     });
                     setAttributes({ items: newItem });
                     setActiveIndex && setActiveIndex(index);
-                }} placeholder={__('Enter Image URL', 'lightbox')} />
+                }} placeholder={__('Enter Image URL', 'lightbox-block')} />
 
-                <TextControl label={__("Thumbnail Alt", 'lightbox')} labelPosition={__('top', 'lightbox')} value={altText} placeholder={__('Enter Image Alt Text', 'lightbox')} onChange={val => updateItem('altText', index, val)} />
+                <TextControl label={__("Thumbnail Alt", 'lightbox-block')} labelPosition={__('top', 'lightbox-block')} value={altText} placeholder={__('Enter Image Alt Text', 'lightbox-block')} onChange={val => updateItem('altText', index, val)} />
             </> :
             <>
-                <Label>{__('Image:', 'lightbox')}</Label>
+                <Label>{__('Image:', 'lightbox-block')}</Label>
 
                 <InlineDetailMediaUpload value={{ url: content || thumbnail, caption: contentCaption }} types={['image']} onChange={val => {
                     const newItem = produce(items, draft => {
@@ -233,51 +236,51 @@ const Item = ({ attributes, setAttributes, arrKey, index, setActiveIndex = false
                     });
                     setAttributes({ items: newItem });
                     setActiveIndex && setActiveIndex(index);
-                }} placeholder={__('Enter Image URL', 'lightbox')} />
+                }} placeholder={__('Enter Image URL', 'lightbox-block')} />
 
-                <TextControl className='mb10 mt10' label={__("Image Alt", 'lightbox')} labelPosition={__('top', 'lightbox')} value={altText} placeholder={__('Enter Image Alt Text', 'lightbox')} onChange={val => updateItem('altText', index, val)} />
+                <TextControl className='mb10 mt10' label={__("Image Alt", 'lightbox-block')} labelPosition={__('top', 'lightbox-block')} value={altText} placeholder={__('Enter Image Alt Text', 'lightbox-block')} onChange={val => updateItem('altText', index, val)} />
             </>}
 
         {/* Audio  */}
         {checkType(lightboxType, type, 'audio') && <>
-            <ToggleControl className='mt10' label={__('Popup Thumbnails show', 'lightbox')} checked={isAudioThumbnails} onChange={(val) => { updateItem('isAudioThumbnails', index, val) }} />
+            <ToggleControl className='mt10' label={__('Popup Thumbnails show', 'lightbox-block')} checked={isAudioThumbnails} onChange={(val) => { updateItem('isAudioThumbnails', index, val) }} />
 
-            <Label className="mt10">{__('Audio:', 'lightbox')}</Label>
-            <InlineMediaUpload value={content} types={['audio']} onChange={val => updateItem('content', index, val)} placeholder={__('Enter Audio URL', 'lightbox')} />
+            <Label className="mt10">{__('Audio:', 'lightbox-block')}</Label>
+            <InlineMediaUpload value={content} types={['audio']} onChange={val => updateItem('content', index, val)} placeholder={__('Enter Audio URL', 'lightbox-block')} />
         </>}
 
         {/* Video  */}
         {checkType(lightboxType, type, 'video') && <>
-            <Label>{__('Video:', 'lightbox')}</Label>
-            <InlineMediaUpload value={content} types={['video']} onChange={val => updateItem('content', index, val)} placeholder={__('Enter Video URL', 'lightbox')} />
+            <Label>{__('Video:', 'lightbox-block')}</Label>
+            <InlineMediaUpload value={content} types={['video']} onChange={val => updateItem('content', index, val)} placeholder={__('Enter Video URL', 'lightbox-block')} />
         </>}
 
         {checkType(lightboxType, type, 'youtube') && <>
-            <Label>{__('YouTube Video Url:', 'lightbox')}</Label>
-            <TextControl value={content} onChange={val => updateItem('content', index, val)} placeholder={__('Enter YouTube Video Url', 'lightbox')} />
+            <Label>{__('YouTube Video Url:', 'lightbox-block')}</Label>
+            <TextControl value={content} onChange={val => updateItem('content', index, val)} placeholder={__('Enter YouTube Video Url', 'lightbox-block')} />
         </>}
 
         {/* pdf  */}
         {checkType(lightboxType, type, 'pdf') && <>
-            <Label>{__('Pdf:', 'lightbox')}</Label>
-            <InlineMediaUpload value={content} types={['pdf']} onChange={val => updateItem('content', index, val)} placeholder={__('Enter Pdf URL', 'lightbox')} />
+            <Label>{__('Pdf:', 'lightbox-block')}</Label>
+            <InlineMediaUpload value={content} types={['pdf']} onChange={val => updateItem('content', index, val)} placeholder={__('Enter Pdf URL', 'lightbox-block')} />
         </>}
 
         {checkType(lightboxType, type, 'iframe') && <>
-            <Label>{__('Iframe:', 'lightbox')}</Label>
-            <TextControl value={content} onChange={val => updateItem('content', index, val)} placeholder={__('Iframe Map URL', 'lightbox')} />
-            <span>{__('Note:Use only src', 'lightbox')}</span>
+            <Label>{__('Iframe:', 'lightbox-block')}</Label>
+            <TextControl value={content} onChange={val => updateItem('content', index, val)} placeholder={__('Iframe Map URL', 'lightbox-block')} />
+            <span>{__('Note:Use only src', 'lightbox-block')}</span>
         </>}
 
         {checkType(lightboxType, type, 'html') && <>
-            <Label>{__('HTML:', 'lightbox')}</Label>
+            <Label>{__('HTML:', 'lightbox-block')}</Label>
             <CustomCodeEditor value={content} onChange={val => updateItem('content', index, val)} />
         </>}
 
         {/* caption area  */}
-        <ToggleControl className='mt10' __nextHasNoMarginBottom label={__('Import Caption From Media', 'lightbox')} checked={importCaption} onChange={(val) => { updateItem('importCaption', index, val) }} />
+        <ToggleControl className='mt10' __nextHasNoMarginBottom label={__('Import Caption From Media', 'lightbox-block')} checked={importCaption} onChange={(val) => { updateItem('importCaption', index, val) }} />
 
-        <Label className='mt10'>{__('Caption', 'lightbox')}</Label>
+        <Label className='mt10'>{__('Caption', 'lightbox-block')}</Label>
         <TextControl className="mt10" value={importCaption ? (type == 'image' ? contentCaption : thumbCaption) : caption} onChange={val => updateItem('caption', index, val)} />
     </>
 }

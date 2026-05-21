@@ -33,7 +33,7 @@ const SingleMediaUpload = ({ attributes, setAttributes }) => {
         {(mediaType === "audio" || mediaType === "video" || mediaType === "pdf" || mediaType === "youtube" || mediaType === "iframe") &&
             <div className="textInput">
                 <TextControl value={mediaUrl} onChange={value => setMediaUrl(value)} placeholder={"Enter Url"} />
-                <Button onClick={handleApply}>{__('Apply', 'lightbox')}</Button>
+                <Button onClick={handleApply}>{__('Apply', 'lightbox-block')}</Button>
             </div>
         }
 
