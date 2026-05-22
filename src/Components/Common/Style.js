@@ -6,7 +6,6 @@ const Style = ({ attributes, id, index = 0 }) => {
 
 	const { closeIconSize } = popupTheme;
 	const { lightboxCaption } = content;
-	console.log(lightboxCaption);
 
 
 	const { typo } = audio;

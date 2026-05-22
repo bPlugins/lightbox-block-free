@@ -1,5 +1,7 @@
 import { Fancybox } from '@fancyapps/ui';
 import '@fancyapps/ui/dist/fancybox/fancybox.css';
+import '../assets/css/carousel.css';
+import '../assets/css/carousel-thum.css';
 import { loadFrameIfNotLoaded, manageVideo } from './utils/functions';
 
 export const lbbConfig = (id, popupIconLeft, popupIconMiddle, popupIconRight, thumb, slideShow, options, controls) => {

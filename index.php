@@ -57,7 +57,7 @@ if (!defined('ABSPATH')) {exit;}
     if (!class_exists('LBB_Lightbox_Plugin')) {
         class LBB_Lightbox_Plugin
         {
-            public function __construct(){
+            public function __construct(){ 
                 $this->load_classes();
                 add_action('init', [$this, 'onInit']);
                 add_action('enqueue_block_assets', [$this, 'enqueueBlockAssets'], 10);

@@ -38,6 +38,74 @@ const Lightbox = ({ ContentArea, attributes, isBackend = false, custom, id, Moda
 	}
 
 	useEffect(() => {
+		if (!isBackend) return;
+		const el = containerRef.current;
+		if (!el) return;
+
+		const handleBackendClick = (e) => {
+			const anchor = e.target.closest('[data-fancybox]');
+			if (!anchor) return;
+
+			e.stopPropagation();
+			e.preventDefault();
+
+			const galleryId = anchor.getAttribute('data-fancybox');
+			const container = e.currentTarget;
+			const allAnchors = Array.from(container.querySelectorAll(`[data-fancybox="${galleryId}"]`));
+
+			const fancyItems = allAnchors.map(a => {
+				const item = {
+					src: a.getAttribute('href'),
+					caption: a.getAttribute('data-caption') || ''
+				};
+				const dataType = a.getAttribute('data-type');
+				if (dataType) item.type = dataType;
+				return item;
+			});
+
+			const idx = allAnchors.indexOf(anchor);
+
+			Fancybox.show(fancyItems, {
+				startIndex: idx >= 0 ? idx : 0,
+				wheel: options.wheel,
+				autoFocus: false,
+				backdropClick: 'close',
+				closeButton: 'auto',
+				Carousel: { transition: options?.transition },
+				Toolbar: {
+					display: {
+						left: Object.keys(popupIconLeft).filter(k => popupIconLeft[k]),
+						middle: Object.keys(popupIconMiddle).filter(k => popupIconMiddle[k]),
+						right: Object.keys(popupIconRight).filter(k => popupIconRight[k])
+					}
+				},
+				Thumbs: {
+					type: thumb.type,
+					showOnStart: thumb.showOnStart,
+					minCount: 2
+				},
+				Slideshow: {
+					playOnStart: slideShow?.playOnStart,
+					timeout: slideShow?.timeout
+				},
+				on: {
+					init: (fancybox) => {
+						setTimeout(() => {
+							if (fancybox.container) {
+								fancybox.container.classList.add(`${id}-lbb_modal_area`);
+								fancybox.container.classList.add('lbb_modal_area');
+							}
+						}, 100);
+					}
+				}
+			});
+		};
+
+		el.addEventListener('click', handleBackendClick, true);
+		return () => el.removeEventListener('click', handleBackendClick, true);
+	}, [isBackend, options, popupIconLeft, popupIconMiddle, popupIconRight, thumb, slideShow, id]);
+
+	useEffect(() => {
 		if (layout === 'default') {
 			const lightBoxElement = document.querySelector(`#${id} .lbbLightBox`);
 			if (lightBoxElement) {

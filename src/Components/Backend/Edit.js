@@ -84,7 +84,7 @@ const Edit = props => {
 			: <div>
 				<Settings attributes={attributes} setAttributes={setAttributes} id={id} clientId={clientId} activeIndex={activeIndex} setActiveIndex={setActiveIndex} />
 
-				<div ref={Els} id={id}>
+				<div ref={Els} id={id} style={{ position: 'relative' }}>
 					<Style attributes={attributes} id={id} />
 					{!isSelected && <div className='lbbPopProtect'></div>}
 

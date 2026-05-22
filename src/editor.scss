@@ -278,12 +278,25 @@ html :where(.lbbContent80 .wp-block) {
 					color: #fff;
 					transition: background 0.2s;
 
-					&.pdf   { color: #60a5fa; }
-					&.iframe { color: #34d399; }
-					&.youtube { color: #f87171; }
-					&.html  { color: #fb923c; }
+					&.pdf {
+						color: #60a5fa;
+					}
 
-					svg { flex-shrink: 0; }
+					&.iframe {
+						color: #34d399;
+					}
+
+					&.youtube {
+						color: #f87171;
+					}
+
+					&.html {
+						color: #fb923c;
+					}
+
+					svg {
+						flex-shrink: 0;
+					}
 				}
 
 				.marketing-cta {
@@ -695,12 +708,25 @@ html :where(.lbbContent80 .wp-block) {
 			border: 1px solid rgba(255, 255, 255, 0.13);
 			color: #fff;
 
-			&.pdf     { color: #60a5fa; }
-			&.iframe  { color: #34d399; }
-			&.youtube { color: #f87171; }
-			&.html    { color: #fb923c; }
+			&.pdf {
+				color: #60a5fa;
+			}
 
-			svg { flex-shrink: 0; }
+			&.iframe {
+				color: #34d399;
+			}
+
+			&.youtube {
+				color: #f87171;
+			}
+
+			&.html {
+				color: #fb923c;
+			}
+
+			svg {
+				flex-shrink: 0;
+			}
 		}
 
 		.marketing-cta {
