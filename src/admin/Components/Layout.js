@@ -6,8 +6,7 @@ const navigation = [
     { name: 'Welcome', href: '/welcome' },
     { name: 'Demos', href: '/demos' },
     { name: 'Pricing', href: '/pricing' },
-    { name: 'Feature Comparison', href: '/feature-comparison' },
-    { name: 'License Activation', href: '/activation' }
+    { name: 'Feature Comparison', href: '/feature-comparison' }
 ];
 
 const Layout = (props) => {

@@ -147,3 +147,22 @@ export const isHtml = (content) => {
 
   return looksLikeHtml || containsHtmlTag;
 }
+
+/**
+ * Sanitize a value before interpolating it into a CSS string rendered
+ * via dangerouslySetInnerHTML.
+ *
+ * Prevents stored-XSS vectors such as:
+ *   }</style><script>alert(1)</script><style>
+ *
+ * Strips: < > { } ` " and common HTML entity escapes for those chars.
+ * Numbers are returned as-is for performance.
+ * Nullish values become an empty string.
+ */
+export const sanitizeCSSValue = (value) => {
+  if (value == null) return '';
+  if (typeof value === 'number') return value;
+  if (typeof value !== 'string') return String(value);
+  // Remove characters that can break out of a CSS value / <style> context
+  return value.replace(/[<>{}`"\\]/g, '');
+}

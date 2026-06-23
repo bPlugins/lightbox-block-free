@@ -5,7 +5,6 @@ import CheckContentType from './CheckContentType';
 const MasonryLayout = ({ attributes, filteredItems, mixAllData, id, EImage, ButtonContent, EAudio, EVideo, galleryIcon, setOpen, setActiveIndex, isOpen, custom, activeIndex, ContentArea, Modal }) => {
     const { lightboxType, columnGap, rowGap, img, caption: captionPosition, columns } = attributes;
     const { desktop, tablet, mobile } = columns;
-    console.log(typeof columnGap);
     const gapValue = parseInt(columnGap);
     return <ResponsiveMasonry columnsCountBreakPoints={{ 0: mobile, 576: tablet, 768: desktop }}>
         <Masonry gutter={gapValue}>

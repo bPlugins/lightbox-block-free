@@ -1,5 +1,5 @@
 import { getTypoCSS, getColorsCSS } from '../../../../bpl-tools/utils/getCSS';
-import { getBoxValue, ratioCheck } from '../../utils/functions';
+import { getBoxValue, ratioCheck, sanitizeCSSValue as s } from '../../utils/functions';
 
 const Style = ({ attributes, id, index = 0 }) => {
 	const { columnGap, rowGap, img, image, imgBorder, playerColor, overlyColor, captionTypo, captionColors, btnTypo, btnWidth, btnHeight, btnAlign, btnColors, btnHovColors, btnPadding, btnBorder, btnRadius, btnSpaceBetween, sliderHeight, popupTheme, audio, slider, content } = attributes;
@@ -9,9 +9,9 @@ const Style = ({ attributes, id, index = 0 }) => {
 
 
 	const { typo } = audio;
-	const mainSl = `#${id}`;
-	const lightboxSl = `${mainSl} #lightbox-${index}`;
-	const audioPlayerModal = `#lbb_audio_modal-${id}`;
+	const mainSl = `#${s(id)}`;
+	const lightboxSl = `${mainSl} #lightbox-${s(index)}`;
+	const audioPlayerModal = `#lbb_audio_modal-${s(id)}`;
 
 	const newStyles = `
 	${getTypoCSS('', btnTypo)?.googleFontLink}
@@ -26,13 +26,13 @@ const Style = ({ attributes, id, index = 0 }) => {
 	}
 
 	${lightboxSl}{
-		grid-gap: ${rowGap} ${columnGap};
-		justify-content:${btnAlign}; 
+		grid-gap: ${s(rowGap)} ${s(columnGap)};
+		justify-content:${s(btnAlign)}; 
 	}
 
 	${lightboxSl} a{
-		width:${btnWidth};
-		height:${btnHeight};
+		width:${s(btnWidth)};
+		height:${s(btnHeight)};
 	}
 
 	${lightboxSl} .contentArea .caption p {
@@ -44,30 +44,30 @@ const Style = ({ attributes, id, index = 0 }) => {
 		padding-top: ${ratioCheck(image?.ratio)}%;
 	}
 
-	.${id}-lbb_modal_area .fancybox__caption {
+	.${s(id)}-lbb_modal_area .fancybox__caption {
 		display: ${lightboxCaption ? 'block' : 'none'};
 	}
 
 	${lightboxSl} .lbbContent_area {
-		border-radius:${img?.borderRadius}px;
-		border:${getBoxValue(imgBorder)};
+		border-radius:${s(img?.borderRadius)}px;
+		border:${s(getBoxValue(imgBorder))};
 	}
 
 	${lightboxSl} .lbbContent_area .contentArea::after {
-		background:${overlyColor};
-		border-radius:${img?.borderRadius}px;
+		background:${s(overlyColor)};
+		border-radius:${s(img?.borderRadius)}px;
 	}
 	
 	${lightboxSl}.llbButton .flex{
-		justify-content: ${btnAlign};
+		justify-content: ${s(btnAlign)};
 	}
 
 	${lightboxSl} .lbbBtnDesign {
 		${getColorsCSS(btnColors)};
-		padding:${getBoxValue(btnPadding)};
-		border:${getBoxValue(btnBorder)};
-		column-gap:${btnSpaceBetween};
-		border-radius:${(getBoxValue(btnRadius))};
+		padding:${s(getBoxValue(btnPadding))};
+		border:${s(getBoxValue(btnBorder))};
+		column-gap:${s(btnSpaceBetween)};
+		border-radius:${s(getBoxValue(btnRadius))};
 		width:100%;
 		height:100%;
 	}
@@ -77,7 +77,7 @@ const Style = ({ attributes, id, index = 0 }) => {
 	}
 
 	.plyr {
-		--plyr-color-main: ${playerColor};
+		--plyr-color-main: ${s(playerColor)};
 	}
 
 	${mainSl} .slider a {
@@ -87,39 +87,39 @@ const Style = ({ attributes, id, index = 0 }) => {
 
 	 
 
-	#ghbModal-${id}, #lbb_audio_modal-${id} {
-		background: ${popupTheme?.color};
+	#ghbModal-${s(id)}, #lbb_audio_modal-${s(id)} {
+		background: ${s(popupTheme?.color)};
+	}
+
+	.fancybox__container.${s(id)}-lbb_modal_area {
+		--fancybox-bg:${s(popupTheme?.color)} !important;
+		z-index: 99999 ;
 	}
 
 	@media (min-width: 1025px) {
 
-		.${id}-lbb_modal_area .fancybox__slide .fancybox__content,
-		#lbb_audio_modal-${id} .llb-custom-modal-content,
-		#llb-dialog-html-${id},
-		#ghbModal-${id} .ghbChildSection {
-			width: ${popupTheme?.size?.desktop}%!important;
-		}
-
-		.${id}-lbb_modal_area {
-			--fancybox-bg:${popupTheme?.color};
-			z-index: 99999 ;
+		.${s(id)}-lbb_modal_area .fancybox__slide .fancybox__content,
+		#lbb_audio_modal-${s(id)} .llb-custom-modal-content,
+		#llb-dialog-html-${s(id)},
+		#ghbModal-${s(id)} .ghbChildSection {
+			width: ${s(popupTheme?.size?.desktop)}%!important;
 		}
 
 		 
 		
-		.${id}-lbb_modal_area .fancybox__slide .fancybox__content .f-button.is-close-btn {
-			width: ${closeIconSize?.desktop}px;
-			height: ${closeIconSize?.desktop}px;
+		.${s(id)}-lbb_modal_area .fancybox__slide .fancybox__content .f-button.is-close-btn {
+			width: ${s(closeIconSize?.desktop)}px;
+			height: ${s(closeIconSize?.desktop)}px;
 		}
 
-		.${id}-lbb_modal_area .fancybox__slide .fancybox__content .f-button.is-close-btn svg {
+		.${s(id)}-lbb_modal_area .fancybox__slide .fancybox__content .f-button.is-close-btn svg {
 			width: ${closeIconSize?.desktop - 10}px;
 			height: ${closeIconSize?.desktop - 10}px;
 		}
 
 		${audioPlayerModal} .llb-custom-modal-content .llb-custom-modal-close{
-			width: ${closeIconSize?.desktop}px;
-			height: ${closeIconSize?.desktop}px;
+			width: ${s(closeIconSize?.desktop)}px;
+			height: ${s(closeIconSize?.desktop)}px;
 		}
 		${audioPlayerModal} .llb-custom-modal-content .llb-custom-modal-close svg {
 			width: ${closeIconSize?.desktop - 10}px;
@@ -129,30 +129,30 @@ const Style = ({ attributes, id, index = 0 }) => {
 
 	@media (max-width: 1024px) {
 
-		.${id}-lbb_modal_area .fancybox__slide .fancybox__content,
-		 #lbb_audio_modal-${id} .llb-custom-modal-content,
-		 #llb-dialog-html-${id},
-		 #ghbModal-${id} .ghbChildSection {
-			width: ${popupTheme?.size?.tablet}%!important;
+		.${s(id)}-lbb_modal_area .fancybox__slide .fancybox__content,
+		 #lbb_audio_modal-${s(id)} .llb-custom-modal-content,
+		 #llb-dialog-html-${s(id)},
+		 #ghbModal-${s(id)} .ghbChildSection {
+			width: ${s(popupTheme?.size?.tablet)}%!important;
 		}
 
 		${lightboxSl} .f-carousel { 
 			 
 		}	
 
-		.${id}-lbb_modal_area .fancybox__slide .fancybox__content .f-button.is-close-btn {
-			width: ${closeIconSize?.tablet}px;
-			height: ${closeIconSize?.tablet}px;
+		.${s(id)}-lbb_modal_area .fancybox__slide .fancybox__content .f-button.is-close-btn {
+			width: ${s(closeIconSize?.tablet)}px;
+			height: ${s(closeIconSize?.tablet)}px;
 		}
 
-		.${id}-lbb_modal_area .fancybox__slide .fancybox__content .f-button.is-close-btn svg {
+		.${s(id)}-lbb_modal_area .fancybox__slide .fancybox__content .f-button.is-close-btn svg {
 			width: ${closeIconSize?.tablet - 10}px;
 			height: ${closeIconSize?.tablet - 10}px;
 		}
 
 		${audioPlayerModal} .llb-custom-modal-content .llb-custom-modal-close{
-			width: ${closeIconSize?.tablet}px;
-			height: ${closeIconSize?.tablet}px;
+			width: ${s(closeIconSize?.tablet)}px;
+			height: ${s(closeIconSize?.tablet)}px;
 		}
 		
 		${audioPlayerModal} .llb-custom-modal-content .llb-custom-modal-close svg {
@@ -163,30 +163,30 @@ const Style = ({ attributes, id, index = 0 }) => {
 
 	@media (max-width: 640px) {
 
-		.${id}-lbb_modal_area .fancybox__slide .fancybox__content,
-		#lbb_audio_modal-${id} .llb-custom-modal-content,
-		#llb-dialog-html-${id}, 
-		#ghbModal-${id} .ghbChildSection {
-			width: ${popupTheme?.size?.mobile}%!important;
+		.${s(id)}-lbb_modal_area .fancybox__slide .fancybox__content,
+		#lbb_audio_modal-${s(id)} .llb-custom-modal-content,
+		#llb-dialog-html-${s(id)}, 
+		#ghbModal-${s(id)} .ghbChildSection {
+			width: ${s(popupTheme?.size?.mobile)}%!important;
 		}
 
 		${lightboxSl} .f-carousel {
 			 
 		}
 
-		.${id}-lbb_modal_area .fancybox__slide .fancybox__content .f-button.is-close-btn {
-			width: ${closeIconSize?.mobile}px;
-			height: ${closeIconSize?.mobile}px;
+		.${s(id)}-lbb_modal_area .fancybox__slide .fancybox__content .f-button.is-close-btn {
+			width: ${s(closeIconSize?.mobile)}px;
+			height: ${s(closeIconSize?.mobile)}px;
 		}
 
-		.${id}-lbb_modal_area .fancybox__slide .fancybox__content .f-button.is-close-btn svg {
+		.${s(id)}-lbb_modal_area .fancybox__slide .fancybox__content .f-button.is-close-btn svg {
 			width: ${closeIconSize?.mobile - 10}px;
 			height: ${closeIconSize?.mobile - 10}px;
 		}
 
 		${audioPlayerModal} .llb-custom-modal-content .llb-custom-modal-close{
-			width: ${closeIconSize?.mobile}px;
-			height: ${closeIconSize?.mobile}px;
+			width: ${s(closeIconSize?.mobile)}px;
+			height: ${s(closeIconSize?.mobile)}px;
 		}
 
 		${audioPlayerModal} .llb-custom-modal-content .llb-custom-modal-close svg {
@@ -194,44 +194,44 @@ const Style = ({ attributes, id, index = 0 }) => {
 			height: ${closeIconSize?.mobile - 10}px;	
 		}	
 	}
-	.${id}-lbb_modal_area .fancybox__slide .fancybox__content .f-button.is-close-btn{
-		background: ${popupTheme?.closeIconColors?.bg};	 
+	.${s(id)}-lbb_modal_area .fancybox__slide .fancybox__content .f-button.is-close-btn{
+		background: ${s(popupTheme?.closeIconColors?.bg)};	 
 	}	
 	
-	.${id}-lbb_modal_area .fancybox__slide .fancybox__content .f-button.is-close-btn:hover{
-		background: ${popupTheme?.closeIconHColor?.bg};
+	.${s(id)}-lbb_modal_area .fancybox__slide .fancybox__content .f-button.is-close-btn:hover{
+		background: ${s(popupTheme?.closeIconHColor?.bg)};
 	}
 
-	.${id}-lbb_modal_area .fancybox__slide .fancybox__content .f-button.is-close-btn svg {
-		fill:${popupTheme?.closeIconColors?.color};
-		stroke:${popupTheme?.closeIconColors?.color};
+	.${s(id)}-lbb_modal_area .fancybox__slide .fancybox__content .f-button.is-close-btn svg {
+		fill:${s(popupTheme?.closeIconColors?.color)};
+		stroke:${s(popupTheme?.closeIconColors?.color)};
 	}
 	
-	.${id}-lbb_modal_area .fancybox__slide .fancybox__content .f-button.is-close-btn:hover svg {
-		fill:${popupTheme?.closeIconHColor?.color};
-		stroke:${popupTheme?.closeIconHColor?.color};
+	.${s(id)}-lbb_modal_area .fancybox__slide .fancybox__content .f-button.is-close-btn:hover svg {
+		fill:${s(popupTheme?.closeIconHColor?.color)};
+		stroke:${s(popupTheme?.closeIconHColor?.color)};
 	}
 	
 	${audioPlayerModal} .llb-custom-modal-content .llb-custom-modal-close {
-		background: ${popupTheme?.closeIconColors?.bg};
+		background: ${s(popupTheme?.closeIconColors?.bg)};
 	}
 
 	${audioPlayerModal} .llb-custom-modal-content .llb-custom-modal-close:hover {
-		background: ${popupTheme?.closeIconHColor?.bg};
+		background: ${s(popupTheme?.closeIconHColor?.bg)};
 	}
 
 	${audioPlayerModal} .llb-custom-modal-content .llb-custom-modal-close svg {
-		fill:${popupTheme?.closeIconColors?.color};
-		stroke:${popupTheme?.closeIconColors?.color};
+		fill:${s(popupTheme?.closeIconColors?.color)};
+		stroke:${s(popupTheme?.closeIconColors?.color)};
 	}
 
 	${audioPlayerModal} .llb-custom-modal-content .llb-custom-modal-close:hover svg{
-		fill:${popupTheme?.closeIconHColor?.color};
-		stroke:${popupTheme?.closeIconHColor?.color};
+		fill:${s(popupTheme?.closeIconHColor?.color)};
+		stroke:${s(popupTheme?.closeIconHColor?.color)};
 	}
 
 	${mainSl} .slider .f-thumbs{
-		--f-thumb-gap: ${columnGap};
+		--f-thumb-gap: ${s(columnGap)};
 	}
 
 	 	

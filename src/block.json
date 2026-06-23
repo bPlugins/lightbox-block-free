@@ -9,7 +9,7 @@
 		"lightbox",
 		"gutenberg-block"
 	],
-	"textdomain": "lightbox",
+	"textdomain": "lightbox-block",
 	"attributes": {
 		"align": {
 			"type": "string",

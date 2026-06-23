@@ -1,7 +1,5 @@
 import { Fancybox } from '@fancyapps/ui';
 import '@fancyapps/ui/dist/fancybox/fancybox.css';
-import '../assets/css/carousel.css';
-import '../assets/css/carousel-thum.css';
 import { loadFrameIfNotLoaded, manageVideo } from './utils/functions';
 
 export const lbbConfig = (id, popupIconLeft, popupIconMiddle, popupIconRight, thumb, slideShow, options, controls) => {
@@ -11,8 +9,9 @@ export const lbbConfig = (id, popupIconLeft, popupIconMiddle, popupIconRight, th
     const leftSidePopOP = Object.keys(popupIconLeft).filter(key => popupIconLeft[key]);
     const middleSidePopOP = Object.keys(popupIconMiddle).filter(key => popupIconMiddle[key]);
     const rightSidePopOP = Object.keys(popupIconRight).filter(key => popupIconRight[key]);
-    const controlsOpt = Object.keys(controls).filter(key => controls[key]);
-    const audioControlsOpt = Object.keys(controls).filter(key => controls[key]);
+    const nonPlyrKeys = ['skipTime', 'isHeart', 'isPlaybackSpeed'];
+    const controlsOpt = Object.keys(controls).filter(key => controls[key] && !nonPlyrKeys.includes(key));
+    const audioControlsOpt = Object.keys(controls).filter(key => controls[key] && !nonPlyrKeys.includes(key));
 
     const twitter = {
         tpl: '<button class="f-button"><svg><path stroke="none" d="M0 0h24v24H0z"/><path d="M22 4.01c-1 .49-1.98.689-3 .99-1.121-1.265-2.783-1.335-4.38-.737S11.977 6.323 12 8v1c-3.245.083-6.135-1.395-8-4 0 0-4.182 7.433 4 11-1.872 1.247-3.739 2.088-6 2 3.308 1.803 6.913 2.423 10.034 1.517 3.58-1.04 6.522-3.723 7.651-7.742a13.84 13.84 0 0 0 .497-3.753c0-.249 1.51-2.772 1.818-4.013z"/></svg></button>',
@@ -90,10 +89,10 @@ export const lbbConfig = (id, popupIconLeft, popupIconMiddle, popupIconRight, th
     Fancybox.bind(`[data-fancybox='${id}-audio-gallery']`, {
         on: {
             done: (fancybox) => {
-                const audioElement = document.querySelectorAll('.lbb-audio-player');
-                Plyr.setup(audioElement, {
-                    controls: audioControlsOpt
-                });
+                const audioElements = Array.from(document.querySelectorAll('.lbb-audio-player')).filter(el => !el.plyr);
+                if (audioElements.length) {
+                    Plyr.setup(audioElements, { controls: audioControlsOpt });
+                }
 
                 const currentSlide = fancybox.getSlide();
                 const currentAudio = currentSlide?.el?.querySelector('.lbb-audio-player');
@@ -136,15 +135,13 @@ export const lbbConfig = (id, popupIconLeft, popupIconMiddle, popupIconRight, th
                 change: (carousel, to, from) => {
                     setTimeout(() => {
                         const currentSlide = carousel.slides[to];
-                        console.log(currentSlide);
 
                         const currentAudio = currentSlide?.el?.querySelector('.lbb-audio-player');
 
-                        // 🔁 Plyr.setup again to ensure it's attached to new slide element
                         if (currentAudio) {
-                            Plyr.setup(currentAudio, {
-                                controls: controlsOpt
-                            });
+                            if (!currentAudio.plyr) {
+                                Plyr.setup(currentAudio, { controls: controlsOpt });
+                            }
 
                             if (currentAudio?.plyr?.play) {
                                 currentAudio.plyr.play().catch(err => {

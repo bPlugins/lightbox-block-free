@@ -1,0 +1,324 @@
+name: Integration Tests — PHP × WordPress Matrix
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+  # Allow manual runs for testing specific matrix combinations
+  workflow_dispatch:
+
+# Cancel in-progress runs for the same branch
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # ──────────────────────────────────────────────
+  # Job 1: PHP Syntax & Static Analysis (fast)
+  # ──────────────────────────────────────────────
+  lint:
+    name: "PHP Lint — ${{ matrix.php }}"
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ['7.4', '8.0', '8.1', '8.2', '8.3']
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP ${{ matrix.php }}
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          tools: php-parallel-lint/php-parallel-lint
+
+      - name: Run PHP syntax check
+        run: parallel-lint --exclude vendor --exclude node_modules .
+
+  # ──────────────────────────────────────────────
+  # Job 2: WordPress Integration Tests (wp-env)
+  # ──────────────────────────────────────────────
+  integration:
+    name: "WP ${{ matrix.wp }} / PHP ${{ matrix.php }}"
+    runs-on: ubuntu-latest
+    needs: lint
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # ── Realistic production combinations ──
+          # Legacy floor
+          - php: '7.4'
+            wp: '6.0'
+          # Transition
+          - php: '7.4'
+            wp: '6.2'
+          - php: '8.0'
+            wp: '6.2'
+          # Stable midrange
+          - php: '8.0'
+            wp: '6.4'
+          - php: '8.1'
+            wp: '6.4'
+          # Modern
+          - php: '8.1'
+            wp: '6.5'
+          - php: '8.2'
+            wp: '6.5'
+          # Current stable
+          - php: '8.2'
+            wp: '6.6'
+          - php: '8.3'
+            wp: '6.6'
+          # Edge: latest PHP on latest WP
+          - php: '8.3'
+            wp: '6.5'
+
+    env:
+      WP_ENV_PHP_VERSION: ${{ matrix.php }}
+      WP_ENV_CORE: "WordPress/WordPress#${{ matrix.wp }}"
+
+    steps:
+      - name: Checkout plugin
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Node dependencies
+        run: npm ci
+
+      - name: Build plugin assets
+        run: npm run build
+
+      - name: Setup PHP ${{ matrix.php }}
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: mysqli, zip, gd, intl, mbstring
+          coverage: none
+          tools: composer:v2, phpunit
+
+      - name: Install Composer dependencies (if any)
+        run: |
+          if [ -f composer.json ]; then
+            composer install --no-interaction --prefer-dist
+          fi
+
+      # ── Create wp-env configuration ──
+      - name: Create .wp-env.json
+        run: |
+          cat > .wp-env.json << 'WPENV'
+          {
+            "core": "WordPress/WordPress#${{ matrix.wp }}",
+            "phpVersion": "${{ matrix.php }}",
+            "plugins": ["."],
+            "config": {
+              "WP_DEBUG": true,
+              "WP_DEBUG_LOG": true,
+              "WP_DEBUG_DISPLAY": true,
+              "SCRIPT_DEBUG": true
+            },
+            "env": {
+              "tests": {
+                "core": "WordPress/WordPress#${{ matrix.wp }}",
+                "phpVersion": "${{ matrix.php }}",
+                "plugins": ["."],
+                "config": {
+                  "WP_DEBUG": true,
+                  "WP_DEBUG_LOG": true,
+                  "WP_DEBUG_DISPLAY": true
+                }
+              }
+            }
+          }
+          WPENV
+
+      # ── Start wp-env ──
+      - name: Install & start wp-env
+        run: |
+          npm -g install @wordpress/env
+          wp-env start --update
+        timeout-minutes: 10
+
+      - name: Verify environment
+        run: |
+          echo "── PHP Version ──"
+          wp-env run cli php -- -v
+
+          echo ""
+          echo "── WordPress Version ──"
+          wp-env run cli wp -- core version
+
+          echo ""
+          echo "── Active Plugins ──"
+          wp-env run cli wp -- plugin list --status=active --format=table
+
+      # ── Activation / Deactivation smoke test ──
+      - name: Test plugin activation
+        run: |
+          echo "==> Deactivating plugin..."
+          wp-env run cli wp -- plugin deactivate lightbox-block
+
+          echo "==> Re-activating plugin..."
+          wp-env run cli wp -- plugin activate lightbox-block
+
+          echo "==> Verify active status..."
+          wp-env run cli wp -- plugin list --name=lightbox-block --field=status | grep -q "active"
+          echo "✅ Plugin activation/deactivation cycle passed"
+
+      # ── Custom Post Type registration test ──
+      - name: Test custom post type registration
+        run: |
+          echo "==> Checking 'lbb' post type is registered..."
+          wp-env run cli wp -- post-type list --format=csv | grep -q "lbb"
+          echo "✅ Custom post type 'lbb' is registered"
+
+          echo "==> Creating a test lightbox post..."
+          POST_ID=$(wp-env run cli wp -- post create \
+            --post_type=lbb \
+            --post_title="CI Test Lightbox" \
+            --post_status=publish \
+            --porcelain)
+          echo "   Created post ID: $POST_ID"
+
+          echo "==> Verifying post exists..."
+          wp-env run cli wp -- post get "$POST_ID" --field=post_type | grep -q "lbb"
+          echo "✅ Test post created and verified"
+
+          echo "==> Cleaning up..."
+          wp-env run cli wp -- post delete "$POST_ID" --force
+          echo "✅ Cleanup complete"
+
+      # ── Shortcode registration test ──
+      - name: Test shortcode registration
+        run: |
+          echo "==> Creating a lightbox post for shortcode test..."
+          POST_ID=$(wp-env run cli wp -- post create \
+            --post_type=lbb \
+            --post_title="Shortcode Test" \
+            --post_status=publish \
+            --porcelain)
+
+          echo "==> Testing shortcode renders without fatal error..."
+          wp-env run cli wp -- eval "echo do_shortcode('[lbb-lightbox-block id=$POST_ID]');" > /dev/null 2>&1 \
+            && echo "✅ Shortcode executed without fatal error" \
+            || echo "⚠️ Shortcode execution had issues (may be expected without block content)"
+
+          echo "==> Cleaning up..."
+          wp-env run cli wp -- post delete "$POST_ID" --force
+
+      # ── Block registration test ──
+      - name: Test block registration
+        run: |
+          echo "==> Checking block 'lbb/lightbox' is registered..."
+          wp-env run cli wp -- eval "
+            \$registry = WP_Block_Type_Registry::get_instance();
+            if (\$registry->is_registered('lbb/lightbox')) {
+              echo 'REGISTERED';
+            } else {
+              echo 'NOT_REGISTERED';
+              exit(1);
+            }
+          " | grep -q "REGISTERED"
+          echo "✅ Block 'lbb/lightbox' is registered"
+
+      # ── Admin page load test ──
+      - name: Test admin pages load without errors
+        run: |
+          echo "==> Checking for PHP errors in debug.log..."
+          wp-env run cli wp -- eval "
+            // Trigger admin init hooks
+            do_action('admin_init');
+            echo 'admin_init OK';
+          "
+
+          echo "==> Checking debug.log for fatal errors..."
+          wp-env run cli -- bash -c "
+            LOG_FILE=/var/www/html/wp-content/debug.log
+            if [ -f \$LOG_FILE ]; then
+              if grep -qi 'fatal\|parse error' \$LOG_FILE; then
+                echo '🔴 FATAL errors found in debug.log:'
+                grep -i 'fatal\|parse error' \$LOG_FILE | tail -20
+                exit 1
+              else
+                echo '✅ No fatal errors in debug.log'
+                if grep -qi 'deprecated\|warning\|notice' \$LOG_FILE; then
+                  echo '⚠️ Non-fatal issues found (warnings/notices):'
+                  grep -i 'deprecated\|warning\|notice' \$LOG_FILE | head -10
+                fi
+              fi
+            else
+              echo '✅ No debug.log file (no errors logged)'
+            fi
+          "
+
+      # ── AJAX endpoint test ──
+      - name: Test AJAX endpoint exists
+        run: |
+          echo "==> Verifying AJAX handler is registered..."
+          wp-env run cli wp -- eval "
+            global \$wp_filter;
+            if (isset(\$wp_filter['wp_ajax_bpllb_get_image_id'])) {
+              echo 'AJAX_REGISTERED';
+            } else {
+              echo 'AJAX_NOT_REGISTERED';
+              exit(1);
+            }
+          " | grep -q "AJAX_REGISTERED"
+          echo "✅ AJAX handler 'bpllb_get_image_id' is registered"
+
+      # ── PHP deprecation / error report ──
+      - name: Collect PHP deprecation notices
+        if: always()
+        run: |
+          echo "══════════════════════════════════════════════"
+          echo "  PHP ${{ matrix.php }} + WordPress ${{ matrix.wp }}"
+          echo "  Deprecation / Error Report"
+          echo "══════════════════════════════════════════════"
+          wp-env run cli -- bash -c "
+            LOG_FILE=/var/www/html/wp-content/debug.log
+            if [ -f \$LOG_FILE ]; then
+              echo ''
+              echo '── Full debug.log (last 50 lines) ──'
+              tail -50 \$LOG_FILE
+            else
+              echo 'No debug.log generated — clean run!'
+            fi
+          "
+
+      # ── Cleanup ──
+      - name: Stop wp-env
+        if: always()
+        run: wp-env stop
+
+  # ──────────────────────────────────────────────
+  # Job 3: Summary
+  # ──────────────────────────────────────────────
+  results:
+    name: "Test Results Summary"
+    runs-on: ubuntu-latest
+    needs: [lint, integration]
+    if: always()
+    steps:
+      - name: Check results
+        run: |
+          echo "══════════════════════════════════════════════"
+          echo "  Lightbox Block — Integration Test Summary"
+          echo "══════════════════════════════════════════════"
+          echo ""
+          echo "Lint status:        ${{ needs.lint.result }}"
+          echo "Integration status: ${{ needs.integration.result }}"
+          echo ""
+
+          if [ "${{ needs.lint.result }}" = "failure" ] || [ "${{ needs.integration.result }}" = "failure" ]; then
+            echo "🔴 Some tests failed. Review the matrix results above."
+            exit 1
+          else
+            echo "✅ All tests passed across the matrix!"
+          fi

@@ -11,7 +11,6 @@ import Style from './Components/Common/Style';
 document.addEventListener('DOMContentLoaded', () => {
     const lightboxEls = document.querySelectorAll('.wp-block-lbb-lightbox');
     lightboxEls.forEach((lightboxEl, index) => {
-        const nonce = JSON.parse(lightboxEl.dataset.nonce);
         const attributes = JSON.parse(lightboxEl.dataset.attributes);
         const { popupIconLeft, popupIconMiddle, popupIconRight, thumb, slideShow, options, controls } = attributes;
 
@@ -19,14 +18,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         createRoot(lightboxEl).render(<>
             <Style attributes={attributes} id={lightboxEl.id} index={index} />
-            <RenderLayout nonce={nonce} attributes={attributes} id={lightboxEl.id} index={index} />
+            <RenderLayout attributes={attributes} id={lightboxEl.id} index={index} />
         </>);
         lightboxEl?.removeAttribute('data-attributes');
     });
 });
 
 
-const RenderLayout = ({ nonce, attributes, id, contentBlock, index }) => {
+const RenderLayout = ({ attributes, id, contentBlock, index }) => {
 
 
 

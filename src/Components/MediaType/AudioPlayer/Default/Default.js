@@ -1,37 +1,24 @@
-import { useEffect, useRef, useMemo } from 'react';
+import { useEffect, useRef } from 'react';
 import { placeholderImg } from '../../../../utils/links';
 
-const Default = ({ isAudioThumbnails, thumbnail, altText, content, attributes }) => {
+const Default = ({ isAudioThumbnails, thumbnail, altText, content }) => {
     const showThumbnail = isAudioThumbnails;
     const audioContainerRef = useRef(null);
-    const plyrInstanceRef = useRef(null);
 
-    const { controls } = attributes;
-
-    // Build the Plyr-compatible controls array from the controls object
-    const controlsOpt = useMemo(() => {
-        return Object.keys(controls).filter(key => controls[key] && key !== 'skipTime' && key !== 'isHeart' && key !== 'isPlaybackSpeed');
-    }, [controls]);
-
-    // Stable string key for dependency comparison
-    const controlsKey = JSON.stringify(controlsOpt);
-
-    // Manage audio element + Plyr entirely outside React's virtual DOM
-    // to avoid the removeChild conflict when Plyr wraps/moves the element
+    // Manage the audio element imperatively to avoid React's virtual DOM
+    // conflicting with Plyr's DOM wrapping (Plyr is initialized by config.js
+    // inside the Fancybox `done` event, not here).
     useEffect(() => {
         const container = audioContainerRef.current;
         if (!container) return;
 
-        // Destroy previous Plyr instance first
-        if (plyrInstanceRef.current) {
-            plyrInstanceRef.current.destroy();
-            plyrInstanceRef.current = null;
+        // Destroy any existing Plyr instance before clearing the container
+        const existing = container.querySelector('.lbb-audio-player');
+        if (existing?.plyr) {
+            existing.plyr.destroy();
         }
-
-        // Clear the container (Plyr leaves behind its wrapper)
         container.innerHTML = '';
 
-        // Create audio element imperatively
         const audioEl = document.createElement('audio');
         audioEl.id = 'player';
         audioEl.className = 'lbb-audio-player';
@@ -48,23 +35,12 @@ const Default = ({ isAudioThumbnails, thumbnail, altText, content, attributes })
         audioEl.appendChild(sourceOgg);
         container.appendChild(audioEl);
 
-        // Initialize Plyr on the new element
-        if (typeof Plyr !== 'undefined') {
-            plyrInstanceRef.current = new Plyr(audioEl, {
-                controls: controlsOpt,
-            });
-        }
-
         return () => {
-            if (plyrInstanceRef.current) {
-                plyrInstanceRef.current.destroy();
-                plyrInstanceRef.current = null;
-            }
-            if (container) {
-                container.innerHTML = '';
-            }
+            const el = container.querySelector('.lbb-audio-player');
+            if (el?.plyr) el.plyr.destroy();
+            container.innerHTML = '';
         };
-    }, [controlsKey, content]);
+    }, [content]);
 
     return (
         <div className='modal_imag_main_section'>

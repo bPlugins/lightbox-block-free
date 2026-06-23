@@ -24,11 +24,18 @@ const General = ({ attributes, setAttributes, isBtnType, updateAttr }) => {
     useEffect(() => {
 
         const fetchImageIds = async () => {
-            const itemsCJson = encodeURIComponent(JSON.stringify(items));
 
             if (items?.length && !items[0]?.id) {
-                // goto php 
-                await fetch(`${bpllbMediaUrlId?.ajaxUrl}?action=bpllb_get_image_id&items=${itemsCJson}&nonce=${bpllbMediaUrlId?.nonce}`).then(res => res.json()).then(data => {
+                // Send via POST to avoid URL length limits and log exposure
+                const formData = new FormData();
+                formData.append('action', 'bpllb_get_image_id');
+                formData.append('nonce', bpllbMediaUrlId?.nonce);
+                formData.append('items', JSON.stringify(items));
+
+                await fetch(bpllbMediaUrlId?.ajaxUrl, {
+                    method: 'POST',
+                    body: formData,
+                }).then(res => res.json()).then(data => {
                     setAttributes({ items: data.data });
                 });
             }

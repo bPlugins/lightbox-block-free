@@ -1,9 +1,13 @@
 ## I do have one feature suggestion - it would be great if images could be added as a group rather than one at a time.
 
-unlock feature :(Lightbox tor bar(left)) zoomIn, zoomOut;
-Lightbox top bar(right):  SlideShows, Thumbnails, Close 
-Lightbox custom color you can set;
-Caption Typo and color you can set;
-
-Player Controls Restart, Play, Rewind, Fast-forward, Progress change this options;
-Close icon you can set icon size, Colors and Hover Colors;  
+Update: Removed restricted "Locked Fields" to improve user flexibility.
+Lightbox Top Bar (Left): Zoom In and Zoom Out controls.
+Lightbox Top Bar (Right): Slideshow, Thumbnails, and Close buttons.
+Custom Styling: Fully customizable Lightbox background colors.
+Typography & Captions: Customizable caption typography (fonts) and colors.
+Advanced Player Controls: Includes Restart, Play, Rewind, Fast-Forward, and Progress Bar adjustment options.
+Close Icon Customization: Easily adjust the Close icon size, default colors, and hover colors.
+Fix: Resolved gallery image reordering issue where rearranged images were not saving or updating correctly in the slider.
+Feature/Enhancement: Added letterboxing (black borders on left/right sides) for portrait images when displayed inside a landscape slider format to maintain aspect ratio.
+Pro: Modal padding problem fix for Iframe.
+Improved: Overall code quality and strengthened security protocols.
