@@ -16,10 +16,13 @@ import UploadGallery from './UploadGallery';
 import SingleMediaUpload from './SingleMediaUpload';
 import MarketingBanner from './MarketingBanner';
 import { placeholderImg } from '../../utils/links';
+import useIframeAssetSync from '../../../../bpl-tools/hooks/useIframeAssetSync';
 
 const Edit = props => {
 	const { attributes, setAttributes, clientId, isSelected, currentPostId, CPTType } = props;
 	const { lightboxType, items } = attributes;
+
+	useIframeAssetSync(['lbb-lightbox-editor-style-css', 'lbb-lightbox-style-css', 'lbb-lightbox-editor-script-js'])
 
 	const Els = useRef();
 	const id = `lbbLightBox-${clientId}`
