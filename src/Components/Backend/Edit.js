@@ -17,7 +17,7 @@ import SingleMediaUpload from './SingleMediaUpload';
 import MarketingBanner from './MarketingBanner';
 import { placeholderImg } from '../../utils/links';
 import useIframeAssetSync from '../../../../bpl-tools/hooks/useIframeAssetSync';
-
+import '../../../../bpl-tools/Components/style.scss';
 const Edit = props => {
 	const { attributes, setAttributes, clientId, isSelected, currentPostId, CPTType } = props;
 	const { lightboxType, items } = attributes;

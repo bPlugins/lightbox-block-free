@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: All In One Lightbox – Display Images, Audio, and Video in Popups
+ * Plugin Name: All In One Lightbox – show any media in beautiful popups
  * Description: Lightbox block is an excellent choice for your WordPress Lightbox Block.
  * Version: 1.1.45
  * Author: bPlugins

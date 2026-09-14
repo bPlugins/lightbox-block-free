@@ -1,4 +1,4 @@
-=== All In One Lightbox – Display Images, Audio, and Video in Popups ===
+=== All In One Lightbox – show any media in beautiful popups ===
 Contributors: bplugins, abuhayat, btechnologies, freemius
 Donate link: https://www.buymeacoffee.com/abuhayat
 Tags: block, lightbox, popup, slider, Gutenberg block
