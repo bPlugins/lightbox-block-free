@@ -7,8 +7,10 @@ import Icon from '../layout/Child/Icon';
 import EAudio from '../../assets/img/audio.svg';
 
 import PopUpArea from './AudioPlayer/PopUpArea';
+import { useThumbLookup } from '../../utils/responsiveImages';
 
 const Audio = ({ attributes, type, mixAllData, id, index, caption, content, lightboxType, img, thumbnail, captionPosition, galleryIcon, ButtonContent, altText, isAudioThumbnails }) => {
+    const getThumb = useThumbLookup();
     const { content: showContent } = attributes;
 
     const commonAudioProps = { id, index, isAudioThumbnails, thumbnail, altText, content, attributes };
@@ -21,6 +23,7 @@ const Audio = ({ attributes, type, mixAllData, id, index, caption, content, ligh
                 className="lbbmodalbtn"
                 href={`${content === '' ? EAudio : content}`}
                 data-src={`#llb-dialog-audio-${id}-${index}`}
+                data-thumb-src={thumbnail ? getThumb(thumbnail) : undefined}
             >
                 {lightboxType === "button" ? (
                     <button className='lbbBtnDesign'><ButtonContent /></button>

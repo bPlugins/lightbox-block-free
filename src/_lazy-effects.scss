@@ -1,0 +1,58 @@
+// Lazy load "Loaded Effect" animations — shared by the front end (style.scss) and the admin live preview
+.lbbFx:not(.is-loaded) {
+	opacity: 0;
+}
+
+// animation (not transition) so the hover transform on the same img keeps working afterwards
+.lbbFx.is-loaded {
+	animation: 0.6s ease backwards;
+}
+
+.lbbFx-fadeIn.is-loaded {
+	animation-name: lbbFxFade;
+}
+
+.lbbFx-zoomIn.is-loaded {
+	animation-name: lbbFxZoom;
+}
+
+.lbbFx-slideUp.is-loaded {
+	animation-name: lbbFxSlideUp;
+}
+
+.lbbFx-blurIn.is-loaded {
+	animation-name: lbbFxBlur;
+}
+
+@keyframes lbbFxFade {
+	from {
+		opacity: 0;
+	}
+}
+
+@keyframes lbbFxZoom {
+	from {
+		opacity: 0;
+		transform: scale(0.85);
+	}
+}
+
+@keyframes lbbFxSlideUp {
+	from {
+		opacity: 0;
+		transform: translateY(20px);
+	}
+}
+
+@keyframes lbbFxBlur {
+	from {
+		opacity: 0;
+		filter: blur(12px);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.lbbFx.is-loaded {
+		animation: none;
+	}
+}

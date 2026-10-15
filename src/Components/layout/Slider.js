@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 import { placeholderImg } from '../../utils/links';
+import { useThumbLookup } from '../../utils/responsiveImages';
 import CheckContentType from './CheckContentType';
 
 const Slider = ({ attributes, filteredItems, mixAllData, id, EImage, ButtonContent, EAudio, EVideo, galleryIcon, setOpen, setActiveIndex, isOpen, custom, activeIndex, ContentArea, Modal }) => {
     const { lightboxType, img, caption: captionPosition, layout, slider } = attributes;
 
+    const getThumb = useThumbLookup();
     const [carousel, setCarousel] = useState(null);
     const [carouselItems, setCaroulelItems] = useState(filteredItems);
 
@@ -45,8 +47,8 @@ const Slider = ({ attributes, filteredItems, mixAllData, id, EImage, ButtonConte
             const actualType = lightboxType === 'gallery' ? type : lightboxType;
 
             const thumbSource = actualType === 'image' 
-                ? (content ? content : placeholderImg) 
-                : (thumbnail ? thumbnail : placeholderImg);
+                ? (content ? getThumb(content) : placeholderImg) 
+                : (thumbnail ? getThumb(thumbnail) : placeholderImg);
 
 
 

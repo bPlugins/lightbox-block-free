@@ -1,0 +1,27 @@
+// Lazy load loading icon (Free: default spinner; more styles in Pro)
+.lbbSpinner {
+	display: inline-block;
+	position: relative;
+	box-sizing: border-box;
+	width: var(--lbbIconSize, 28px);
+	height: var(--lbbIconSize, 28px);
+	color: #888888;
+	--lbbIconStroke: max(2px, calc(var(--lbbIconSize, 28px) / 9));
+
+	i {
+		display: none;
+	}
+
+	&.lbbSpinner-spinner {
+		border: var(--lbbIconStroke) solid currentColor;
+		border-right-color: transparent;
+		border-radius: 50%;
+		animation: lbbSpin 0.8s linear infinite;
+	}
+}
+
+@keyframes lbbSpin {
+	to {
+		transform: rotate(360deg);
+	}
+}

@@ -14,7 +14,10 @@ export const useAudio = (url = "", skipTime = 5) => {
 
 
     useEffect(() => {
-        audioRef.current = new Audio(url);
+        // preload none: hidden / unplayed tracks don't download (WordPress core default)
+        audioRef.current = new Audio();
+        audioRef.current.preload = 'none';
+        audioRef.current.src = url;
         const audio = audioRef.current;
         audio.volume = volume;
 

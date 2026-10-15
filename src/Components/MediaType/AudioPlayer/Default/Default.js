@@ -1,9 +1,13 @@
 import { useEffect, useRef } from 'react';
 import { placeholderImg } from '../../../../utils/links';
+import { useResponsiveImg } from '../../../../utils/responsiveImages';
 
 const Default = ({ isAudioThumbnails, thumbnail, altText, content }) => {
     const showThumbnail = isAudioThumbnails;
     const audioContainerRef = useRef(null);
+    // Player image lives in a hidden popup that may be copied into the lightbox, so no scroll observer / effect:
+    // the large (WebP) file from the map with the browser's own lazy loading
+    const { src: playerSrc } = useResponsiveImg(thumbnail);
 
     // Manage the audio element imperatively to avoid React's virtual DOM
     // conflicting with Plyr's DOM wrapping (Plyr is initialized by config.js
@@ -22,6 +26,7 @@ const Default = ({ isAudioThumbnails, thumbnail, altText, content }) => {
         const audioEl = document.createElement('audio');
         audioEl.id = 'player';
         audioEl.className = 'lbb-audio-player';
+        audioEl.preload = 'none'; // don't fetch the file until it is played
 
         const sourceMp3 = document.createElement('source');
         sourceMp3.src = content;
@@ -46,7 +51,7 @@ const Default = ({ isAudioThumbnails, thumbnail, altText, content }) => {
         <div className='modal_imag_main_section'>
             {showThumbnail ? (
                 <div className="modal_imag_area">
-                    <img className="rounded" src={thumbnail || placeholderImg} alt={altText} />
+                    <img className="rounded" src={playerSrc || thumbnail || placeholderImg} alt={altText} loading='lazy' decoding='async' />
                 </div>
             ) : (
                 <div></div>

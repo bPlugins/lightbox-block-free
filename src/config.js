@@ -2,6 +2,16 @@ import { Fancybox } from '@fancyapps/ui';
 import '@fancyapps/ui/dist/fancybox/fancybox.css';
 import { loadFrameIfNotLoaded, manageVideo } from './utils/functions';
 
+// Cloudflare Stream iframes keep their URL in data-lbb-src until their slide is shown, so nothing loads on page view
+const loadLazyIframes = (slide) => requestAnimationFrame(() => {
+    slide?.el?.querySelectorAll('iframe[data-lbb-src]').forEach(frame => {
+        if (!frame.getAttribute('src')) {
+            frame.src = frame.dataset.lbbSrc;
+        }
+    });
+});
+
+
 export const lbbConfig = (id, popupIconLeft, popupIconMiddle, popupIconRight, thumb, slideShow, options, controls) => {
 
 
@@ -187,7 +197,10 @@ export const lbbConfig = (id, popupIconLeft, popupIconMiddle, popupIconRight, th
         Hash: false,
 
         on: {
-            done: () => {
+            'Carousel.selectSlide': (fancybox, carousel, slide) => loadLazyIframes(slide),
+            done: (fancybox, slide) => {
+                // `done` also fires for preloaded neighbours: only the slide being shown loads its iframe
+                if (slide?.index === fancybox?.getSlide?.()?.index) loadLazyIframes(slide);
                 const videoElement = document.querySelectorAll('.fancybox__html5video');
 
                 const youtubeVideos = document.querySelectorAll('.has-youtube .fancybox__content');
@@ -257,7 +270,10 @@ export const lbbConfig = (id, popupIconLeft, popupIconMiddle, popupIconRight, th
 
     Fancybox.bind(`[data-fancybox='${id}-allDataGallery']`, {
         on: {
-            done: () => {
+            'Carousel.selectSlide': (fancybox, carousel, slide) => loadLazyIframes(slide),
+            done: (fancybox, slide) => {
+                // `done` also fires for preloaded neighbours: only the slide being shown loads its iframe
+                if (slide?.index === fancybox?.getSlide?.()?.index) loadLazyIframes(slide);
 
                 const videoElements = document.querySelectorAll('.has-html5video video');
                 const youtubeVideos = document.querySelectorAll('.has-youtube .fancybox__content');

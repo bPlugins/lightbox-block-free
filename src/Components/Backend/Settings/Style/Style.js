@@ -29,6 +29,13 @@ const Style = ({ attributes, setAttributes, updateAttr, isBtnType }) => {
             </PanelBody>
         </>
     }
+        {/* Pagination look is a Pro feature (with Pagination itself) */}
+        {'button' !== lightboxType && 'slider' !== layout &&
+            <PanelBody className='bPlPanelBody' title={<> {__('Pagination', 'lightbox-block')}<PremiumBadge />
+            </>} initialOpen={false}>
+                <PremiumPanel title={__('Pagination Style', 'lightbox-block')} description={__('Load More button and page-number style (filled or outline, color, text color, corner radius) for each gallery are available in the Premium version.', 'lightbox-block')} pricingUrl={adminUrl()} demoUrl='https://bplugins.com/products/lightbox-block/#demos' />
+            </PanelBody>}
+
         {((lightboxType === 'gallery' && items.some(item => item.type === "video")) || lightboxType === 'video') &&
             <PanelBody className='bPlPanelBody' title={<> {__('Player', 'lightbox-block')}<PremiumBadge />
             </>} initialOpen={false}>

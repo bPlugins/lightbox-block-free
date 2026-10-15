@@ -1,0 +1,41 @@
+// 3x3 crop position picker (editor panel + admin Lazy Load page)
+.lbbCropGrid {
+	display: inline-grid;
+	grid-template-columns: repeat(3, 34px);
+	grid-template-rows: repeat(3, 34px);
+	gap: 4px;
+	padding: 4px;
+	border-radius: 8px;
+	background: #f0f0f1;
+
+	button {
+		display: grid;
+		place-items: center;
+		padding: 0;
+		border: 1px solid #dcdcde;
+		border-radius: 5px;
+		background: #fff;
+		cursor: pointer;
+		transition: background 0.15s, border-color 0.15s;
+
+		span {
+			width: 8px;
+			height: 8px;
+			border-radius: 50%;
+			background: #c3c4c7;
+		}
+
+		&:hover {
+			border-color: #146ef5;
+		}
+
+		&.isActive {
+			border-color: #146ef5;
+			background: #146ef5;
+
+			span {
+				background: #fff;
+			}
+		}
+	}
+}

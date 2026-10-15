@@ -1,9 +1,11 @@
 import { checkType } from '../../utils/functions';
 import { placeholderImg } from '../../utils/links';
+import { useResponsiveImg } from '../../utils/responsiveImages';
 import Icon from '../layout/Child/Icon';
 
 const Content = ({ attributes, type, lightboxType, img, thumbnail, setOpen, setActiveIndex, index, galleryIcon, ButtonContent, isOpen, activeIndex, Modal, id, ContentArea, item, custom, altText }) => {
     const { content: showContent } = attributes;
+    const { src: responsiveSrc, imgProps, spinner } = useResponsiveImg(thumbnail);
 
     return checkType(lightboxType, type, 'content') && <a>
         {"button" === lightboxType ?
@@ -13,7 +15,8 @@ const Content = ({ attributes, type, lightboxType, img, thumbnail, setOpen, setA
                     setOpen(true);
                     setActiveIndex(index);
                 }}>
-                    <img src={thumbnail || placeholderImg} alt={altText} />
+                    <img src={responsiveSrc || thumbnail || placeholderImg} alt={altText} {...imgProps} />
+                    {spinner}
                 </div>
                 {/* {caption && <div className={`caption ${captionPosition?.position}`}>
                     <p>{caption}</p>

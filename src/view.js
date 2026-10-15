@@ -6,21 +6,27 @@ import { lbbConfig } from './config';
 import Lightbox from './Lightbox';
 
 import Style from './Components/Common/Style';
+import { parseResponsive, ResponsiveProvider } from './utils/responsiveImages';
 
 // Lightbox Block
 document.addEventListener('DOMContentLoaded', () => {
     const lightboxEls = document.querySelectorAll('.wp-block-lbb-lightbox');
     lightboxEls.forEach((lightboxEl, index) => {
         const attributes = JSON.parse(lightboxEl.dataset.attributes);
+        // First row may skip lazy only when the block starts inside the first screen (LCP); lower galleries stay fully lazy
+        const responsive = { ...parseResponsive(lightboxEl.dataset.responsive), aboveFold: lightboxEl.getBoundingClientRect().top < window.innerHeight };
         const { popupIconLeft, popupIconMiddle, popupIconRight, thumb, slideShow, options, controls } = attributes;
 
         lbbConfig(lightboxEl.id, popupIconLeft, popupIconMiddle, popupIconRight, thumb, slideShow, options, controls);
 
         createRoot(lightboxEl).render(<>
             <Style attributes={attributes} id={lightboxEl.id} index={index} />
-            <RenderLayout attributes={attributes} id={lightboxEl.id} index={index} />
+            <ResponsiveProvider value={responsive}>
+                <RenderLayout attributes={attributes} id={lightboxEl.id} index={index} />
+            </ResponsiveProvider>
         </>);
         lightboxEl?.removeAttribute('data-attributes');
+        lightboxEl?.removeAttribute('data-responsive');
     });
 });
 

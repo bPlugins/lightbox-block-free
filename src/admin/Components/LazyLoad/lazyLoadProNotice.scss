@@ -1,0 +1,291 @@
+.lbbLazyNotice {
+	--lbbPrimary: var(--bpl-dashboard-primary-color, #0b81ee);
+	--lbbTitle: var(--bpl-dashboard-title-color, #070127);
+	--lbbText: #4b5565;
+	--lbbBorder: #eceef3;
+
+	max-width: 920px;
+	margin: 0 auto;
+	padding-bottom: 40px;
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+	color: var(--lbbText);
+
+	* {
+		box-sizing: border-box;
+	}
+
+	h1,
+	h3 {
+		margin: 0;
+		color: var(--lbbTitle);
+	}
+
+	p {
+		margin: 0;
+	}
+
+	svg {
+		width: 1em;
+		height: 1em;
+		flex-shrink: 0;
+	}
+}
+
+.lbbLazyNotice .lbbLazyNoticeHero {
+	position: relative;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 12px;
+	padding: 32px 24px 28px;
+	text-align: center;
+	border-radius: 0;
+	color: #fff;
+	background: linear-gradient(135deg, #6155f5 0%, #8c74fd 55%, #f59e0b 130%);
+	box-shadow: 0 18px 40px rgba(97, 85, 245, 0.25);
+
+	&::after {
+		content: '';
+		position: absolute;
+		top: -80px;
+		right: -60px;
+		width: 260px;
+		height: 260px;
+		border-radius: 50%;
+		background: rgba(255, 255, 255, 0.08);
+		pointer-events: none;
+	}
+
+	h1 {
+		color: #fff;
+		font-size: 30px;
+		line-height: 1.2;
+	}
+
+	p {
+		max-width: 600px;
+		font-size: 15px;
+		line-height: 1.6;
+		opacity: 0.92;
+	}
+}
+
+.lbbLazyNotice .lbbLazyNoticeIcon {
+	display: grid;
+	place-items: center;
+	width: 64px;
+	height: 64px;
+	border-radius: 0;
+	font-size: 30px;
+	background: rgba(255, 255, 255, 0.18);
+}
+
+.lbbLazyNotice .lbbLazyNoticeBadge {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 4px 12px;
+	border-radius: 0;
+	font-size: 12px;
+	font-weight: 700;
+	letter-spacing: 0.4px;
+	text-transform: uppercase;
+	color: #6155f5;
+	background: #fff;
+}
+
+.lbbLazyNotice .lbbLazyNoticeActions {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 10px;
+	margin-top: 8px;
+}
+
+.lbbLazyNotice .lbbLazyNoticeBtn {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	padding: 11px 22px;
+	border-radius: 0;
+	font-size: 14px;
+	font-weight: 600;
+	text-decoration: none;
+	color: #fff;
+	border: 1px solid rgba(255, 255, 255, 0.5);
+	transition: transform 0.15s, box-shadow 0.15s;
+
+	&:hover,
+	&:focus {
+		color: #fff;
+		transform: translateY(-1px);
+	}
+
+	&.isPrimary {
+		color: #6155f5;
+		background: #fff;
+		border-color: #fff;
+		box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+
+		&:hover,
+		&:focus {
+			color: #6155f5;
+		}
+	}
+}
+
+.lbbLazyNotice .lbbLazyNoticeGrid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 14px;
+}
+
+.lbbLazyNotice .lbbLazyNoticeItem {
+	position: relative;
+	padding: 16px;
+	border-radius: 0;
+	background: #fff;
+
+	h3 {
+		font-size: 15px;
+		margin-bottom: 6px;
+		padding-right: 24px;
+	}
+
+	p {
+		font-size: 13px;
+		line-height: 1.5;
+	}
+}
+
+.lbbLazyNotice .lbbLazyNoticeLock {
+	position: absolute;
+	top: 18px;
+	right: 18px;
+	font-size: 14px;
+	color: #8c74fd;
+}
+
+.lbbLazyNotice .lbbLazyNoticeFree {
+	display: flex;
+	gap: 16px;
+	padding: 16px 18px;
+	border-radius: 0;
+	background: #f6fdf9;
+	border: 1px solid #c8eedb;
+
+	h3 {
+		font-size: 15px;
+	}
+
+	p {
+		margin-top: 4px;
+		font-size: 13px;
+	}
+
+	ul {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 8px;
+		margin: 14px 0 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	li {
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+		margin: 0;
+		padding: 5px 12px;
+		border-radius: 0;
+		font-size: 12px;
+		font-weight: 500;
+		color: #065f46;
+		background: #fff;
+		border: 1px solid #c8eedb;
+
+		svg {
+			color: #10b981;
+		}
+	}
+}
+
+.lbbLazyNotice .lbbLazyNoticeFreeIcon {
+	display: grid;
+	place-items: center;
+	width: 40px;
+	height: 40px;
+	border-radius: 0;
+	font-size: 20px;
+	color: #10b981;
+	background: #fff;
+	border: 1px solid #c8eedb;
+	flex-shrink: 0;
+}
+
+@media (max-width: 782px) {
+	.lbbLazyNotice .lbbLazyNoticeGrid {
+		grid-template-columns: 1fr;
+	}
+
+	.lbbLazyNotice .lbbLazyNoticeHero {
+		padding: 32px 20px 28px;
+	}
+}
+
+// Top bar: the free, per-gallery Lazy Load in the block + "Try it" button
+.lbbLazyNotice .lbbLazyNoticeFreeBar {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	padding: 14px 18px;
+	border-radius: 0;
+	background: #f6fdf9;
+	border: 1px solid #c8eedb;
+
+	p {
+		flex: 1;
+		font-size: 14px;
+		line-height: 1.5;
+		color: #065f46;
+	}
+
+	strong {
+		color: #064e3b;
+	}
+
+	.lbbLazyNoticeFreeIcon {
+		width: 32px;
+		height: 32px;
+		font-size: 16px;
+	}
+}
+
+.lbbLazyNotice .lbbLazyNoticeTry {
+	flex-shrink: 0;
+	padding: 9px 16px;
+	border-radius: 0;
+	font-size: 13px;
+	font-weight: 600;
+	text-decoration: none;
+	color: #fff;
+	background: #10b981;
+	transition: background 0.15s;
+
+	&:hover,
+	&:focus {
+		color: #fff;
+		background: #059669;
+	}
+}
+
+@media (max-width: 782px) {
+	.lbbLazyNotice .lbbLazyNoticeFreeBar {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+}

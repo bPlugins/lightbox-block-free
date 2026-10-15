@@ -9,9 +9,10 @@ import EVideo from './assets/img/video.svg';
 import Default from './Components/layout/Default';
 import MasonryLayout from './Components/layout/Masonry';
 import Slider from './Components/layout/Slider';
+import { LazyLoadProvider } from './utils/responsiveImages';
 
 const Lightbox = ({ ContentArea, attributes, isBackend = false, custom, id, Modal, index = 0 }) => {
-	const { lightboxType, items, layout, columns, button, galleryIcon, popupOptions, popupIconLeft, popupIconMiddle, popupIconRight, thumb, slideShow, options, controls, audio, popupTheme } = attributes;
+	const { lightboxType, items, layout, columns, button, galleryIcon, popupOptions, popupIconLeft, popupIconMiddle, popupIconRight, thumb, slideShow, options, controls, audio, popupTheme, lazyLoad } = attributes;
 	const { mixAllData } = popupOptions;
 	const [isOpen, setOpen] = useState(false);
 	const [activeIndex, setActiveIndex] = useState(0);
@@ -58,6 +59,9 @@ const Lightbox = ({ ContentArea, attributes, isBackend = false, custom, id, Moda
 				const item = {
 					caption: a.getAttribute('data-caption') || ''
 				};
+				// Thumbnail strip uses the small thumb; Download gives the original when the lightbox shows a WebP copy
+				if (a.dataset.thumbSrc) item.thumbSrc = a.dataset.thumbSrc;
+				if (a.dataset.downloadSrc) item.downloadSrc = a.dataset.downloadSrc;
 
 				if (dataSrc) {
 					// For audio inline content: extract HTML as a string to avoid
@@ -192,7 +196,9 @@ const Lightbox = ({ ContentArea, attributes, isBackend = false, custom, id, Moda
 	}
 
 	return <div ref={containerRef} className={` ${lightboxType !== 'button' ? `lbbLightBox ${layout} columns-${columns.desktop} columns-tablet-${columns.tablet} columns-mobile-${columns.mobile}` : 'lbbLightBox llbButton'}`} id={`lightbox-${index}`}>
-		{layout === 'masonry' ? <MasonryLayout {...masonryProps} /> : layout === 'slider' ? <Slider {...globalProps} /> : <Default {...globalProps} />}
+		<LazyLoadProvider lazyLoad={lazyLoad}>
+			{layout === 'masonry' ? <MasonryLayout {...masonryProps} /> : layout === 'slider' ? <Slider {...globalProps} /> : <Default {...globalProps} />}
+		</LazyLoadProvider>
 	</div>
 }
 export default Lightbox;

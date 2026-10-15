@@ -56,7 +56,7 @@ export const manageVideo = (player) => {
     });
   }
 
-  player.elements.container.classList.add('fancybox__content');
+  player.elements?.container?.classList.add('fancybox__content');
 }
 
 export const checkUrlImage = (url) => {

@@ -10,3 +10,16 @@
 }
 
 @import '../../../bpl-tools/Admin/style.scss';
+
+// "New" pill on the Lazy Load nav link
+.bPlDashboardNav .lbbNavNew {
+    margin-left: 6px;
+    padding: 1px 6px;
+    border-radius: 99px;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1.5;
+    color: #ff7a00;
+    background: #ff7a0020;
+    vertical-align: middle;
+}

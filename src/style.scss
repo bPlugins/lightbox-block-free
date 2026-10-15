@@ -494,10 +494,11 @@
 			// border-radius: 5px;
 		}
 
+		// Portrait images fill the frame like landscape ones (no black side bars); "contain" fit is a Pro option
 		.lbbContent_area .contentArea .img.portrait {
-			background: #000;
+			background: transparent;
 			img {
-				object-fit: contain;
+				object-fit: cover;
 			}
 		}
 
@@ -721,3 +722,60 @@
 // 		}
 // 	}
 // }
+
+/*
+* Lazy load: loaded effects + loading icon (shapes and keyframes are shared with the admin preview)
+*/
+@import 'loading-icons';
+@import 'lazy-effects';
+
+.wp-block-lbb-lightbox {
+	.lbbLightBox .img {
+		position: relative;
+		// own stacking context, so the placeholder (z-index -1) sits behind the image but above this box
+		isolation: isolate;
+
+		&:has(> .lbbSpinner),
+		&:has(> .lbbPlaceholder) {
+			min-height: max(80px, calc(var(--lbbIconSize, 28px) + 20px));
+		}
+
+		&:has(> .lbbPlaceholder-blur) {
+			overflow: hidden;
+		}
+	}
+
+	// Placeholder: color box or blurred thumbnail shown until the image arrives
+	.lbbLightBox .img > .lbbPlaceholder {
+		position: absolute;
+		inset: 0;
+		z-index: -1;
+		display: block;
+		width: 100%;
+		height: 100%;
+		pointer-events: none;
+	}
+
+	.lbbLightBox .img > img.lbbPlaceholder-blur {
+		object-fit: cover !important;
+		filter: blur(14px);
+		transform: scale(1.15) !important;
+	}
+
+	// Uploaded custom loader keeps its own proportions, untouched by the grid's img rules / hover zoom
+	.lbbLightBox .img .lbbSpinner-custom img {
+		position: static !important;
+		object-fit: contain !important;
+		transform: none !important;
+	}
+
+	// Loading icon centered over the image box; margins, since the spin animations already use transform
+	.lbbLightBox .img > .lbbSpinner {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		margin: calc(var(--lbbIconSize, 28px) / -2) 0 0 calc(var(--lbbIconSize, 28px) / -2);
+		pointer-events: none;
+		z-index: 1;
+	}
+}

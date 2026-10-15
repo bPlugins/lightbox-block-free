@@ -101,3 +101,25 @@ export const btnSopt = [
 	{ label: __('Fill', 'lightbox-block'), value: 'fill' },
 	{ label: __('Outline', 'lightbox-block'), value: 'outline' }
 ]
+
+export const thumbSizeOpt = [
+	{ label: __('Thumbnail (150px)', 'lightbox-block'), value: 'thumbnail' },
+	{ label: __('Medium (300px)', 'lightbox-block'), value: 'medium' },
+	{ label: __('Medium Large (768px)', 'lightbox-block'), value: 'medium_large' },
+	{ label: __('Large (1024px)', 'lightbox-block'), value: 'large' },
+	{ label: __('Full Size', 'lightbox-block'), value: 'full' },
+]
+
+export const placeholderOpt = [
+	{ label: __('None', 'lightbox-block'), value: 'none' },
+	{ label: __('Color', 'lightbox-block'), value: 'color' },
+	{ label: __('Blur (LQIP)', 'lightbox-block'), value: 'blur' },
+]
+
+export const loadedEffectOpt = [
+	{ label: __('None', 'lightbox-block'), value: 'none' },
+	{ label: __('Fade In', 'lightbox-block'), value: 'fadeIn' },
+	{ label: __('Zoom In', 'lightbox-block'), value: 'zoomIn' },
+	{ label: __('Slide Up', 'lightbox-block'), value: 'slideUp' },
+	{ label: __('Blur In', 'lightbox-block'), value: 'blurIn' },
+]

@@ -116,6 +116,8 @@ if (!defined('ABSPATH')) {exit;}
                  
                 require_once plugin_dir_path(__FILE__) . '/inc/AdminMenu.php';
                 require_once plugin_dir_path(__FILE__) . '/inc/custom-shortcode.php';
+                require_once plugin_dir_path(__FILE__) . '/inc/WebP.php';
+                require_once plugin_dir_path(__FILE__) . '/inc/LazyConflicts.php';
             }
 
             public function bpllb_get_image_id(){
