@@ -19,6 +19,7 @@ import MarketingBanner from '../../MarketingBanner';
 
 
 // Label with a hover help icon (keeps the Lazy Load panel compact)
+const LAZY_TUTORIAL_URL = 'https://www.youtube.com/watch?v=XZCoyDO768M';
 const helpLabel = (label, text) => <>{label}<HelpTooltip text={text} /></>;
 
 const General = ({ attributes, setAttributes, isBtnType, updateAttr }) => {
@@ -139,6 +140,10 @@ const General = ({ attributes, setAttributes, isBtnType, updateAttr }) => {
         {/* Lazy load & image loading — every type except button (no thumbnails there) */}
         {
             !isBtnType && <PanelBody className='bPlPanelBody lbbLazyPanel' title={<>{__('Lazy Load', 'lightbox-block')} <Badge className='ml5' /></>} initialOpen={false}>
+                <p className='lbbLazyNote'>
+                    {__('New to Lazy Load?', 'lightbox-block')}
+                    <a className='lbbLazyTutorial' href={LAZY_TUTORIAL_URL} target='_blank' rel='noreferrer'>{__('Watch tutorial', 'lightbox-block')}</a>
+                </p>
                 {(lazyLoad?.enabled ?? true) && <LazyConflictNotice />}
 
                 <ToggleControl

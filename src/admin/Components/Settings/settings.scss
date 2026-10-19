@@ -96,6 +96,13 @@
 
 .lbbSettingsBody {
 	min-width: 0;
+
+	// Tab screens start right next to the tabs instead of centering in the column
+	.lbbLazyNotice,
+	.lbbLazyPage {
+		max-width: none;
+		margin: 0;
+	}
 }
 
 // Small screens: tabs become a horizontal scroll row above the content

@@ -51,7 +51,8 @@ if ( ! class_exists( 'LBBWebP' ) ) {
             }
             global $wpdb;
             $ids = [];
-            $posts = $wpdb->get_col( "SELECT ID FROM {$wpdb->posts} WHERE post_content LIKE '%wp:lbb/lightbox%' AND post_type <> 'revision' AND post_status NOT IN ('trash', 'auto-draft')" );
+            // No core API searches post_content across every post type; the result is cached in a transient above.
+            $posts = $wpdb->get_col( "SELECT ID FROM {$wpdb->posts} WHERE post_content LIKE '%wp:lbb/lightbox%' AND post_type <> 'revision' AND post_status NOT IN ('trash', 'auto-draft')" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
             $walk = function ( $blocks ) use ( &$walk, &$ids ) {
                 foreach ( $blocks as $block ) {
                     if ( 'lbb/lightbox' === ( $block['blockName'] ?? '' ) ) {

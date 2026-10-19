@@ -1,6 +1,6 @@
 {
 	"name": "lightbox-block",
-	"version": "1.1.43",
+	"version": "1.2.0",
 	"description": "Lightbox block is an excellent choice for your WordPress Lightbox Block",
 	"main": "index.js",
 	"scripts": {
@@ -17,7 +17,8 @@
 		"i18n": "npm run i18n-pot && npm run i18n-json && npm run i18n-mo",
 		"find-ds": "find . -name '.DS_Store' -delete",
 		"plugin-zip": "wp-scripts plugin-zip",
-		"bundle": "npm run lint && npm run build && npm run i18n && npm run find-ds && npm run plugin-zip"
+		"bundle": "npm run lint && npm run build && npm run i18n && npm run find-ds && npm run plugin-zip",
+		"zip": "npm run build && npm run i18n && npm run find-ds && rm -f lightbox-block.zip && cd .. && zip -r lightbox-block/lightbox-block.zip lightbox-block/index.php lightbox-block/inc lightbox-block/assets lightbox-block/build lightbox-block/languages lightbox-block/vendor lightbox-block/readme.txt -x '*/.DS_Store' '*.map'"
 	},
 	"author": "Al-amin",
 	"license": "ISC",

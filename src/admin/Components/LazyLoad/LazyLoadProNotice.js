@@ -28,6 +28,9 @@ const FREE_FEATURES = [
     __('Lazy-load Plugin Conflict Notice', 'lightbox-block'),
 ];
 
+// Video tutorial on YouTube
+const LAZY_TUTORIAL_URL = 'https://www.youtube.com/watch?v=XZCoyDO768M';
+
 // New page with a Lightbox gallery block already inserted (filled by AdminMenu::starterContent)
 const tryItUrl = adminUrl => `${adminUrl}post-new.php?post_type=page&lbb_starter=1`;
 
@@ -39,7 +42,13 @@ const LazyLoadProNotice = ({ adminUrl = '' }) => <div className='lbbLazyNotice'>
             <strong>{__('Lazy Load is free in the Lightbox block.', 'lightbox-block')}</strong>{' '}
             {__('Set it for each gallery in the Gutenberg editor: Lightbox block → General → Lazy Load.', 'lightbox-block')}
         </p>
-        <a href={tryItUrl(adminUrl)} target='_blank' rel='noreferrer' className='lbbLazyNoticeTry'>{__('Try it in a new page', 'lightbox-block')} ↗</a>
+        <div className='lbbLazyNoticeBarActions'>
+            <a href={LAZY_TUTORIAL_URL} target='_blank' rel='noreferrer' className='lbbLazyNoticeVideo'>
+                <svg viewBox='0 0 24 24' aria-hidden='true'><path d='M8 5.5v13l10.5-6.5z' fill='currentColor' /></svg>
+                {__('Watch tutorial', 'lightbox-block')}
+            </a>
+            <a href={tryItUrl(adminUrl)} target='_blank' rel='noreferrer' className='lbbLazyNoticeTry'>{__('Try it in a new page', 'lightbox-block')} ↗</a>
+        </div>
     </section>
 
     <section className='lbbLazyNoticeHero'>

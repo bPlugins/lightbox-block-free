@@ -3,8 +3,8 @@ Contributors: bplugins, abuhayat, btechnologies, freemius
 Donate link: https://www.buymeacoffee.com/abuhayat
 Tags: block, lightbox, popup, slider, Gutenberg block
 Requires at least: 6.5
-Stable tag: 1.1.45
-Tested up to: 7.0
+Stable tag: 1.2.0
+Tested up to: 7.1
 Requires PHP: 7.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -91,6 +91,12 @@ That’s it!
 
 [Live Demo](https://bplugins.com/products/lightbox-block/#demos) | [Try the Pro Version](https://bplugins.com/products/lightbox-block/pricing)
 
+=== Make Your Galleries Load Fast – Lazy Load Tutorial ===
+
+https://www.youtube.com/watch?v=XZCoyDO768M
+
+See how Lazy Load, WebP, Thumbnail Size, Loaded Effects and Pagination make a 30-photo gallery open with 0.46 MB instead of 11.9 MB.
+
 = Feedback =
 - Did you Like that plugin? Hate it? Want a new feature? [Send me some feedback](mailto:support@bplugins.com 'Send feedback')
 
@@ -161,7 +167,7 @@ Please report security bugs found in the source code of the LightBox Block plugi
 
 == Changelog ==
 
-= 1.2.0 - 15 Oct, 2026 =
+= 1.2.0 - 19 Oct, 2026 =
 * New: Lazy Load for gallery images — load distance, delay, loaded effect, color placeholder and loading spinner (block → General → Lazy Load).
 * New: Responsive images (srcset) with a Thumbnail Size option; Retina screens get sharper files automatically.
 * New: WebP images, converted in the background on your own server; the lightbox shows the WebP copy and Download still gives the original file.
@@ -349,6 +355,9 @@ Please report security bugs found in the source code of the LightBox Block plugi
 
 
 == Upgrade Notice ==
+
+= 1.2.0 - 19 Oct, 2026 =
+* New: Lazy Load, WebP images and responsive srcset make big galleries open much faster. It’s on by default; adjust it in the block under General → Lazy Load.
 
 = 1.1.45 - 17 July, 2026 =
 * When I added a block from the block editor search, I was not getting CSS and JS, but now it is fixed.
