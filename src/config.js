@@ -1,11 +1,11 @@
 import { Fancybox } from '@fancyapps/ui';
 import '@fancyapps/ui/dist/fancybox/fancybox.css';
-import { loadFrameIfNotLoaded, manageVideo } from './utils/functions';
+import { isCloudflareStream, loadFrameIfNotLoaded, manageVideo } from './utils/functions';
 
 // Cloudflare Stream iframes keep their URL in data-lbb-src until their slide is shown, so nothing loads on page view
-const loadLazyIframes = (slide) => requestAnimationFrame(() => {
+export const loadLazyIframes = (slide) => requestAnimationFrame(() => {
     slide?.el?.querySelectorAll('iframe[data-lbb-src]').forEach(frame => {
-        if (!frame.getAttribute('src')) {
+        if (!frame.getAttribute('src') && isCloudflareStream(frame.dataset.lbbSrc)) {
             frame.src = frame.dataset.lbbSrc;
         }
     });

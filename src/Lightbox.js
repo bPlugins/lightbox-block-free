@@ -1,7 +1,7 @@
 
 import { useEffect, useState, useRef } from 'react';
 import { Fancybox } from '@fancyapps/ui';
-import { lbbConfig } from './config';
+import { lbbConfig, loadLazyIframes } from './config';
 import EImage from './assets/img/image.svg';
 import EAudio from './assets/img/audio.svg';
 import EPdf from './assets/img/pdf.svg';
@@ -110,7 +110,10 @@ const Lightbox = ({ ContentArea, attributes, isBackend = false, custom, id, Moda
 					timeout: slideShow?.timeout
 				},
 				on: {
-					done: (fancybox) => {
+					'Carousel.selectSlide': (fancybox, carousel, slide) => loadLazyIframes(slide),
+					done: (fancybox, slide) => {
+						// `done` also fires for preloaded neighbours: only the slide being shown loads its iframe
+						if (slide?.index === fancybox?.getSlide?.()?.index) loadLazyIframes(slide);
 						if (typeof Plyr === 'undefined') return;
 
 						const nonPlyrKeys = ['skipTime', 'isHeart', 'isPlaybackSpeed'];

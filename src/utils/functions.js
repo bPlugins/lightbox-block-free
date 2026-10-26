@@ -1,3 +1,4 @@
+import { sanitizeURL } from '../../../bpl-tools/utils/common';
 
 export const adminUrl = (isFreemiusFile) => {
 
@@ -166,3 +167,16 @@ export const sanitizeCSSValue = (value) => {
   // Remove characters that can break out of a CSS value / <style> context
   return value.replace(/[<>{}`"\\]/g, '');
 }
+
+// Only https://*.cloudflarestream.com URLs may be loaded into the Cloudflare Stream iframe
+export const isCloudflareStream = (url) => {
+  try {
+    const { protocol, hostname } = new URL(url);
+    return 'https:' === protocol && ('cloudflarestream.com' === hostname || hostname.endsWith('.cloudflarestream.com'));
+  } catch {
+    return false;
+  }
+}
+
+// http(s) or relative URL, otherwise the fallback (blocks javascript:, data: etc. in href)
+export const safeUrl = (url, fallback = '') => sanitizeURL(url) || fallback;
