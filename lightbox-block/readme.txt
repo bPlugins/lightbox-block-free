@@ -360,6 +360,9 @@ Please report security bugs found in the source code of the LightBox Block plugi
 
 == Upgrade Notice ==
 
+= 1.2.1 - 26 Oct, 2026 =
+* Security update: fixes a stored XSS issue that a Contributor-level user could exploit through a video item URL. Cloudflare Stream videos also play in the lightbox again. Please update right away.
+
 = 1.2.0 - 19 Oct, 2026 =
 * New: Lazy Load, WebP images and responsive srcset make big galleries open much faster. It’s on by default; adjust it in the block under General → Lazy Load.
 
