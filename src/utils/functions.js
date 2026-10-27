@@ -23,6 +23,9 @@ export const ratioCheck = (val = "9:16") => {
   return result;
 }
 
+// Grid image fit: cover | containPortrait | contain (older Pro blocks only have the fitPortrait toggle)
+export const getImageFit = (image) => image?.fit || (image?.fitPortrait ? 'containPortrait' : 'cover');
+
 export const getNumber = (val) => {
   const colGap = val;
   const columnGap = colGap.match(/\d/g);

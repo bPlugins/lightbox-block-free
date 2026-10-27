@@ -9,10 +9,12 @@ const ChildImage = ({ img, thumbnail, altText }) => {
         const { naturalWidth, naturalHeight } = e.target;
         setIsPortrait(naturalHeight > naturalWidth);
     };
-    const { src, imgProps, spinner } = useResponsiveImg(thumbnail, 'rounded', handleLoad);
+    const { src, thumb, imgProps, spinner } = useResponsiveImg(thumbnail, 'rounded', handleLoad);
+    const imgSrc = src || thumbnail || placeholderImg;
 
-    return <div className={`img ${img?.animation}${isPortrait ? ' portrait' : ''}`}>
-        <img className="rounded" src={src || thumbnail || placeholderImg} alt={altText} {...imgProps} />
+    // --lbbFitBg: blurred copy that fills the empty sides when Image Fit is contain (see Common/Style.js)
+    return <div className={`img ${img?.animation}${isPortrait ? ' portrait' : ''}`} style={{ '--lbbFitBg': `url(${JSON.stringify(thumb || imgSrc)})` }}>
+        <img className="rounded" src={imgSrc} alt={altText} {...imgProps} />
         {spinner}
     </div>
 }

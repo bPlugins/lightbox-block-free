@@ -1,5 +1,5 @@
 import { getTypoCSS, getColorsCSS } from '../../../../bpl-tools/utils/getCSS';
-import { getBoxValue, ratioCheck, sanitizeCSSValue as s } from '../../utils/functions';
+import { getBoxValue, getImageFit, ratioCheck, sanitizeCSSValue as s } from '../../utils/functions';
 
 const Style = ({ attributes, id, index = 0 }) => {
 	const { columnGap, rowGap, img, image, imgBorder, playerColor, overlyColor, captionTypo, captionColors, btnTypo, btnWidth, btnHeight, btnAlign, btnColors, btnHovColors, btnPadding, btnBorder, btnRadius, btnSpaceBetween, sliderHeight, popupTheme, audio, slider, content } = attributes;
@@ -12,6 +12,9 @@ const Style = ({ attributes, id, index = 0 }) => {
 	const mainSl = `#${s(id)}`;
 	const lightboxSl = `${mainSl} #lightbox-${s(index)}`;
 	const audioPlayerModal = `#lbb_audio_modal-${s(id)}`;
+	// Grid thumbnails: contain all images, only portrait ones (.portrait set by ChildImage), or none
+	const imageFit = getImageFit(image);
+	const fitSl = 'containPortrait' === imageFit ? '.portrait' : '';
 
 	const newStyles = `
 	${getTypoCSS('', btnTypo)?.googleFontLink}
@@ -234,7 +237,20 @@ const Style = ({ attributes, id, index = 0 }) => {
 		--f-thumb-gap: ${s(columnGap)};
 	}
 
-	 	
+	${'cover' !== imageFit ? `
+	${lightboxSl} .lbbContent_area .contentArea .img${fitSl}::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		z-index: -1;
+		background: var(--lbbFitBg) center / cover no-repeat;
+		filter: blur(14px);
+		transform: scale(1.15);
+	}
+	${lightboxSl} .lbbContent_area .contentArea .img${fitSl} img {
+		object-fit: contain;
+	}
+	` : ''}
 `;
 
 	return <style dangerouslySetInnerHTML={{

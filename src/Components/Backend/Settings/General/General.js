@@ -7,11 +7,11 @@ import { HelpPanel, IconControl, Label, ItemsPanel, BtnGroup, Notice, Badge, Hel
 import { BDevice } from '../../../../../../bpl-tools/Components/Deprecated';
 import { AdvertiseCard, BControlPro, BtnGroupPro, PremiumBadge, PremiumPanel, SelectControlPro } from '../../../../../../bpl-tools/ProControls';
 import { placeholderImg } from '../../../../utils/links';
-import { layoutOpt, lbType, pxUnit, perUnit, emUnit, ratioOpt, sliderOpt, thumbSizeOpt, loadedEffectOpt, placeholderOpt } from '../../../../utils/options';
+import { layoutOpt, lbType, pxUnit, perUnit, emUnit, ratioOpt, imageFitOpt, sliderOpt, thumbSizeOpt, loadedEffectOpt, placeholderOpt } from '../../../../utils/options';
 import Item from './Item';
 import { useEffect } from 'react';
 import UploadGallery from '../../UploadGallery';
-import { adminUrl } from '../../../../utils/functions';
+import { adminUrl, getImageFit } from '../../../../utils/functions';
 import CropPositionGrid from '../../../../utils/CropPositionGrid';
 import { getLazyLoad, lazyOverrides } from '../../../../utils/responsiveImages';
 import LazyConflictNotice from '../../LazyConflictNotice';
@@ -134,6 +134,7 @@ const General = ({ attributes, setAttributes, isBtnType, updateAttr }) => {
         {
             layout !== "masonry" && <PanelBody className='bPlPanelBody' title={<> {__('Image Aspect Ratio', 'lightbox-block')}<PremiumBadge />
             </>} initialOpen={false}>
+                <SelectControl label={__('Image Fit', 'lightbox-block')} className='mt10' labelPosition="side" value={getImageFit(image)} options={imageFitOpt} onChange={(val) => setAttributes({ image: { ...image, fit: val } })} help={'cover' === getImageFit(image) ? __('Images fill the frame, so part of a portrait or wide image is cropped.', 'lightbox-block') : __('Whole image is shown; empty sides are filled with a blurred copy of it.', 'lightbox-block')} __nextHasNoMarginBottom />
                 <PremiumPanel title={__('Ratio', 'lightbox-block')} description={__('Image Aspect Ratio(Landscape, Square, Potrait, Vertical and Horizontal) are available in the Premium version.', 'lightbox-block')} pricingUrl={adminUrl()} demoUrl='https://bplugins.com/products/lightbox-block/#demos' />
             </PanelBody>}
 

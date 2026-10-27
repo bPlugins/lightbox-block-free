@@ -104,8 +104,9 @@
 			}
 		}
 
+		// contain: the popup size setting can make the box wider than a portrait image, cover would crop it
 		.fancybox-image {
-			object-fit: cover;
+			object-fit: contain;
 		}
 	}
 
@@ -494,7 +495,7 @@
 			// border-radius: 5px;
 		}
 
-		// Portrait images fill the frame like landscape ones (no black side bars); "contain" fit is a Pro option
+		// Portrait images fill the frame like landscape ones (no black side bars); "Image Fit" setting can contain them
 		.lbbContent_area .contentArea .img.portrait {
 			background: transparent;
 			img {

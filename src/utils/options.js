@@ -19,6 +19,12 @@ export const ratioOpt = [
 	{ label: __('9:16 - Potrait', 'lightbox-block'), value: '9:16' },
 ]
 
+export const imageFitOpt = [
+	{ label: __('Cover (fill, may crop)', 'lightbox-block'), value: 'cover' },
+	{ label: __('Contain portrait images', 'lightbox-block'), value: 'containPortrait' },
+	{ label: __('Contain all images', 'lightbox-block'), value: 'contain' },
+]
+
 export const captionPOpt = [
 	{ label: __('Overly Center', 'lightbox-block'), value: 'overlyCenter' },
 	{ label: __('Overly Top', 'lightbox-block'), value: 'overlyTop' },
