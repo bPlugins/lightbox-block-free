@@ -51,6 +51,10 @@ const Style = ({ attributes, id, index = 0 }) => {
 		display: ${lightboxCaption ? 'block' : 'none'};
 	}
 
+	.${s(id)}-lbb_modal_area .fancybox__caption a {
+		color: inherit;
+	}
+
 	${lightboxSl} .lbbContent_area {
 		border-radius:${s(img?.borderRadius)}px;
 		border:${s(getBoxValue(imgBorder))};

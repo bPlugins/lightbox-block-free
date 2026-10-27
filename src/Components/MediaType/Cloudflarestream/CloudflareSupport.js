@@ -1,6 +1,6 @@
 
 
-import { sanitizeHTML } from '../../../../../bpl-tools/utils/common';
+import { sanitizeCaption } from '../../../utils/functions';
 import { useThumbLookup } from '../../../utils/responsiveImages';
 import Caption from '../../layout/Child/Caption';
 import ChildImage from '../../layout/Child/ChildImage';
@@ -20,7 +20,7 @@ const CloudflareSupport = ({ type, attributes, id, index, content, mixAllData, c
             </div>
         </div>
 
-        <a data-fancybox={`${mixAllData ? `${id}-allDataGallery` : `${id}-video-gallery`}`} data-src={`#${id}-dialog-content${index}`} data-caption={sanitizeHTML(caption)} className="feedItem" data-thumb-src={thumbnail ? getThumb(thumbnail) : undefined}>
+        <a data-fancybox={`${mixAllData ? `${id}-allDataGallery` : `${id}-video-gallery`}`} data-src={`#${id}-dialog-content${index}`} data-caption={sanitizeCaption(caption)} className="feedItem" data-thumb-src={thumbnail ? getThumb(thumbnail) : undefined}>
             {"button" === lightboxType ? <button className='lbbBtnDesign'><ButtonContent /></button>
                 : <div className={`contentArea ${showContent?.overlyColor && "overlyColor"}`}>
                     <ChildImage altText={altText} img={img} thumbnail={thumbnail} />

@@ -26,6 +26,53 @@ export const ratioCheck = (val = "9:16") => {
 // Grid image fit: cover | containPortrait | contain (older Pro blocks only have the fitPortrait toggle)
 export const getImageFit = (image) => image?.fit || (image?.fitPortrait ? 'containPortrait' : 'cover');
 
+// Lightbox caption HTML: tags of bpl-tools sanitizeHTML, http/https links only (mailto: and tel: are Pro).
+// No style/class: a caption link could be stretched invisibly over the whole lightbox (clickjacking)
+const captionTags = ['b', 'strong', 'i', 'em', 'span', 'a', 'br'];
+const captionAttrs = ['href', 'target', 'rel'];
+
+export const sanitizeCaption = (input) => {
+  const doc = new DOMParser().parseFromString(input || '', 'text/html');
+
+  doc.body.querySelectorAll('*').forEach(node => {
+    if (!captionTags.includes(node.tagName.toLowerCase())) {
+      node.remove();
+      return;
+    }
+
+    [...node.attributes].forEach(({ name, value }) => {
+      if (!captionAttrs.includes(name)) {
+        node.removeAttribute(name);
+      } else if ('href' === name) {
+        const href = sanitizeURL(value);
+        href ? node.setAttribute('href', href) : node.removeAttribute('href');
+      }
+    });
+  });
+
+  return doc.body.innerHTML;
+}
+
+// Gallery caption: formatting tags only, no attributes; links become plain text (the item itself is a link)
+const gridCaptionTags = ['b', 'strong', 'i', 'em', 'span', 'br'];
+
+export const sanitizeGridCaption = (input) => {
+  const doc = new DOMParser().parseFromString(input || '', 'text/html');
+
+  doc.body.querySelectorAll('*').forEach(node => {
+    const tag = node.tagName.toLowerCase();
+    if ('a' === tag) {
+      node.replaceWith(...node.childNodes);
+    } else if (!gridCaptionTags.includes(tag)) {
+      node.remove();
+    } else {
+      [...node.attributes].forEach(({ name }) => node.removeAttribute(name));
+    }
+  });
+
+  return doc.body.innerHTML;
+}
+
 export const getNumber = (val) => {
   const colGap = val;
   const columnGap = colGap.match(/\d/g);

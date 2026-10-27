@@ -1,5 +1,4 @@
-import { sanitizeHTML } from '../../../../bpl-tools/utils/common';
-import { checkType, safeUrl } from '../../utils/functions';
+import { checkType, safeUrl, sanitizeCaption } from '../../utils/functions';
 import Caption from '../layout/Child/Caption';
 import ChildImage from '../layout/Child/ChildImage';
 import { useFullLookup } from '../../utils/responsiveImages';
@@ -27,7 +26,7 @@ const Image = ({ attributes, type, mixAllData, id, caption, content, EImage, lig
     };
 
     return checkType(lightboxType, type, 'image') && (
-        <a data-fancybox={`${mixAllData ? `${id}-allDataGallery` : `${id}-gallery`}`} data-caption={sanitizeHTML(caption || '')} className="lbbmodalbtn fancybox" href={safeUrl(getHref(), EImage)} data-download-src={downloadSrc} data-thumb-src={'image' === type && content ? getThumb(content) : undefined}>
+        <a data-fancybox={`${mixAllData ? `${id}-allDataGallery` : `${id}-gallery`}`} data-caption={sanitizeCaption(caption)} className="lbbmodalbtn fancybox" href={safeUrl(getHref(), EImage)} data-download-src={downloadSrc} data-thumb-src={'image' === type && content ? getThumb(content) : undefined}>
             {"button" === lightboxType ? (
                 <button className='lbbBtnDesign'><ButtonContent /></button>
             ) : (

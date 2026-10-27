@@ -1,6 +1,5 @@
 
-import { sanitizeHTML } from '../../../../bpl-tools/utils/common';
-import { checkType, safeUrl } from '../../utils/functions';
+import { checkType, safeUrl, sanitizeCaption } from '../../utils/functions';
 import Caption from '../layout/Child/Caption';
 import ChildImage from '../layout/Child/ChildImage';
 import Icon from '../layout/Child/Icon';
@@ -19,7 +18,7 @@ const Audio = ({ attributes, type, mixAllData, id, index, caption, content, ligh
         <>
             <a
                 data-fancybox={`${mixAllData ? `${id}-allDataGallery` : `${id}-audio-gallery`}`}
-                data-caption={sanitizeHTML(caption)}
+                data-caption={sanitizeCaption(caption)}
                 className="lbbmodalbtn"
                 href={safeUrl(content, EAudio)}
                 data-src={`#llb-dialog-audio-${id}-${index}`}
