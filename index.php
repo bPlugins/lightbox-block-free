@@ -118,6 +118,7 @@ if (!defined('ABSPATH')) {exit;}
                 require_once plugin_dir_path(__FILE__) . '/inc/custom-shortcode.php';
                 require_once plugin_dir_path(__FILE__) . '/inc/WebP.php';
                 require_once plugin_dir_path(__FILE__) . '/inc/LazyConflicts.php';
+                require_once plugin_dir_path(__FILE__) . '/inc/AutoLightbox.php';
             }
 
             public function bpllb_get_image_id(){

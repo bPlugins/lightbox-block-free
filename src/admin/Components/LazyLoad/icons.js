@@ -11,3 +11,5 @@ export const layersIcon = <svg viewBox='0 0 24 24' fill='none' stroke='currentCo
 export const crownIcon = <svg viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round'><path d='m2 7 5 5 5-8 5 8 5-5-2 12H4L2 7z' /></svg>;
 
 export const pagesIcon = <svg viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round'><rect x='3' y='4' width='7' height='7' rx='1.5' /><rect x='14' y='4' width='7' height='7' rx='1.5' /><rect x='3' y='15' width='7' height='5' rx='1.5' /><path d='M15 17.5h6M18 14.5v6' /></svg>;
+
+export const expandIcon = <svg viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round'><path d='M15 3h6v6' /><path d='M9 21H3v-6' /><path d='M21 3l-7 7' /><path d='M3 21l7-7' /></svg>;

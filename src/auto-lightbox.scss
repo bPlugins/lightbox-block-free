@@ -1,0 +1,16 @@
+// Images that open in Auto Lightbox show they can be clicked
+[data-fancybox^="lbb-auto-"],
+[data-fancybox^="lbb-auto-"] img {
+	cursor: zoom-in;
+}
+
+img[data-fancybox^="lbb-auto-"]:focus-visible,
+a[data-fancybox^="lbb-auto-"]:focus-visible img {
+	outline: 3px solid #146ef5;
+	outline-offset: 3px;
+}
+
+// WooCommerce zoom copy that sits over the product image
+.woocommerce-product-gallery__image:has([data-fancybox^="lbb-auto-"]) .zoomImg {
+	cursor: zoom-in;
+}

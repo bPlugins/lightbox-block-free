@@ -1,12 +1,13 @@
 import { NavLink, Outlet } from 'react-router-dom';
 import { __ } from '@wordpress/i18n';
 
-import { boltIcon, pagesIcon } from '../LazyLoad/icons';
+import { boltIcon, pagesIcon, expandIcon } from '../LazyLoad/icons';
 import './settings.scss';
 
 // One entry per global-settings tab; new features (Auto Lightbox, Protection…) add theirs here
 export const SETTINGS_TABS = [
     { slug: 'lazy-load', label: __('Lazy Load', 'lightbox-block'), text: __('Loading, WebP, loaders', 'lightbox-block'), icon: boltIcon },
+    { slug: 'auto-lightbox', label: __('Auto Lightbox', 'lightbox-block'), text: __('Image & Gallery blocks, site-wide', 'lightbox-block'), icon: expandIcon },
     { slug: 'pagination', label: __('Pagination', 'lightbox-block'), text: __('Load More & page numbers', 'lightbox-block'), icon: pagesIcon },
 ];
 

@@ -1,0 +1,1238 @@
+// Settings page chrome copied from Pro's Lazy Load page (hero, cards, toggles, save bar); keep in sync with Pro
+// Loader shapes + loaded-effect animations shared with the front end
+
+.lbbLazyPage {
+	--lbbPrimary: var(--bpl-dashboard-primary-color, #0b81ee);
+	--lbbPrimaryRgb: var(--bpl-dashboard-primary-color-rgb, 11, 129, 238);
+	--lbbTitle: var(--bpl-dashboard-title-color, #070127);
+	--lbbText: #4b5565;
+	--lbbBorder: #eceef3;
+	--lbbSoft: #f7f8fb;
+	--lbbGreen: #10b981;
+
+	max-width: 1180px;
+	margin: 0 auto;
+	padding-bottom: 96px;
+	color: var(--lbbText);
+	font-size: 14px;
+
+	* {
+		box-sizing: border-box;
+	}
+
+	h1,
+	h3,
+	h4 {
+		color: var(--lbbTitle);
+		margin: 0;
+	}
+
+	p {
+		margin: 0;
+	}
+
+	button {
+		font-family: inherit;
+		cursor: pointer;
+	}
+
+	svg {
+		width: 1em;
+		height: 1em;
+		flex-shrink: 0;
+	}
+}
+
+.lbbLazyPage .lbbPreviewCaption {
+	margin-top: 10px;
+	font-size: 12px;
+	color: #9ca3af;
+	text-align: center;
+}
+
+// Free (per-gallery) Lazy Load bar, shown above the upsell when Pro has no license
+.lbbLazyPage .lbbFreeBar {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin-bottom: 12px;
+	padding: 10px 14px;
+	border-radius: 0;
+	background: #f6fdf9;
+	border: 1px solid #c8eedb;
+
+	p {
+		flex: 1;
+		font-size: 14px;
+		line-height: 1.5;
+		color: #065f46;
+	}
+
+	strong {
+		color: #064e3b;
+	}
+}
+
+.lbbLazyPage .lbbFreeBarBtn {
+	flex-shrink: 0;
+	padding: 9px 16px;
+	border-radius: 0;
+	font-size: 13px;
+	font-weight: 600;
+	text-decoration: none;
+	color: #fff;
+	background: #10b981;
+
+	&:hover,
+	&:focus {
+		color: #fff;
+		background: #059669;
+	}
+}
+
+// Wide version under the hero: text left, buttons right
+.lbbLazyPage .lbbInfoCard.isWide {
+	align-items: center;
+	margin-top: 12px;
+
+	> div:nth-child(2) {
+		flex: 1;
+	}
+
+	.lbbInfoActions {
+		flex-shrink: 0;
+		margin-top: 0;
+	}
+}
+
+@media (max-width: 782px) {
+	.lbbLazyPage .lbbInfoCard.isWide {
+		flex-wrap: wrap;
+	}
+}
+
+.lbbLazyPage .lbbInfoActions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin-top: 12px;
+
+	.lbbGhostBtn {
+		text-decoration: none;
+	}
+}
+
+// Pro notice (Free plugin preview mode)
+.lbbLazyPage .lbbProNotice {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	margin-bottom: 12px;
+	padding: 14px 18px;
+	border-radius: 0;
+	color: #fff;
+	background: linear-gradient(120deg, #6155f5, #8c74fd 55%, #f59e0b);
+	box-shadow: 0 12px 28px rgba(97, 85, 245, 0.25);
+
+	h3 {
+		color: #fff;
+		font-size: 16px;
+	}
+
+	p {
+		margin-top: 4px;
+		font-size: 13px;
+		line-height: 1.5;
+		opacity: 0.92;
+	}
+
+	> div {
+		flex: 1;
+	}
+
+	.lbbPrimaryBtn {
+		color: #6155f5;
+		background: #fff;
+		box-shadow: none;
+		white-space: nowrap;
+	}
+}
+
+.lbbLazyPage .lbbProNoticeIcon {
+	display: grid;
+	place-items: center;
+	width: 44px;
+	height: 44px;
+	border-radius: 0;
+	font-size: 22px;
+	background: rgba(255, 255, 255, 0.18);
+	flex-shrink: 0;
+}
+
+// Hero
+.lbbLazyPage .lbbHero {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	padding: 14px 18px;
+	border-radius: 0;
+	background: #fff;
+	position: relative;
+	overflow: hidden;
+
+	&::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		background: radial-gradient(circle at 0% 0%, rgba(var(--lbbPrimaryRgb), 0.12), transparent 55%);
+		pointer-events: none;
+	}
+
+	.lbbHeroIcon {
+		position: relative;
+		display: grid;
+		place-items: center;
+		width: 44px;
+		height: 44px;
+		border-radius: 0;
+		font-size: 22px;
+		color: #fff;
+		background: linear-gradient(135deg, var(--lbbPrimary), #8c74fd);
+		box-shadow: 0 6px 14px rgba(var(--lbbPrimaryRgb), 0.25);
+	}
+
+	.lbbHeroText {
+		position: relative;
+		flex: 1;
+
+		h1 {
+			font-size: 20px;
+			line-height: 1.2;
+			margin: 2px 0 4px;
+		}
+
+		p {
+			max-width: 640px;
+			font-size: 13px;
+			line-height: 1.5;
+		}
+	}
+
+	.lbbEyebrow {
+		font-size: 10px;
+		font-weight: 700;
+		letter-spacing: 1.4px;
+		text-transform: uppercase;
+		color: var(--lbbPrimary);
+	}
+
+	.lbbHeroSwitch {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 6px;
+	}
+
+	.lbbToggle {
+		transform: scale(1.05);
+	}
+}
+
+.lbbLazyPage .lbbStatus {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 4px 12px;
+	border-radius: 0;
+	font-size: 12px;
+	font-weight: 600;
+	color: #6b7280;
+	background: #f1f2f6;
+
+	&::before {
+		content: '';
+		width: 7px;
+		height: 7px;
+		border-radius: 50%;
+		background: currentColor;
+	}
+
+	&.isOn {
+		color: var(--lbbGreen);
+		background: rgba(16, 185, 129, 0.1);
+	}
+}
+
+// "Always on" chips
+.lbbLazyPage .lbbAlwaysOn {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 10px;
+	margin: 16px 0 0;
+	padding: 0;
+	list-style: none;
+
+	li {
+		display: flex;
+		align-items: flex-start;
+		gap: 10px;
+		margin: 0;
+		padding: 10px 12px;
+		border-radius: 0;
+		background: #fff;
+	}
+
+	strong {
+		display: block;
+		font-size: 13px;
+		color: var(--lbbTitle);
+	}
+
+	small {
+		display: block;
+		margin-top: 2px;
+		font-size: 12px;
+		line-height: 1.4;
+	}
+}
+
+.lbbLazyPage .lbbCheck {
+	display: grid;
+	place-items: center;
+	width: 22px;
+	height: 22px;
+	border-radius: 50%;
+	font-size: 12px;
+	color: #fff;
+	background: var(--lbbGreen);
+	flex-shrink: 0;
+}
+
+// Layout
+.lbbLazyPage .lbbLazyGrid {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) 380px;
+	gap: 14px;
+	margin-top: 14px;
+	align-items: start;
+}
+
+.lbbLazyPage .lbbLazyMain {
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+}
+
+.lbbLazyPage .lbbLazySide {
+	position: sticky;
+	top: 48px;
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+}
+
+// Cards
+.lbbLazyPage .lbbCard {
+	padding: 18px;
+	border-radius: 0;
+	background: #fff;
+	transition: opacity 0.2s;
+
+	&.isMuted {
+		opacity: 0.55;
+	}
+}
+
+.lbbLazyPage .lbbCardHead {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 12px;
+	padding-bottom: 10px;
+	margin-bottom: 14px;
+	border-bottom: 1px solid var(--lbbBorder);
+
+	h3 {
+		font-size: 16px;
+	}
+
+	p {
+		margin-top: 4px;
+		font-size: 13px;
+	}
+}
+
+// "Core" pill next to the main card title
+.lbbLazyPage .lbbCoreBadge {
+	display: inline-flex;
+	align-items: center;
+	margin-left: 6px;
+	padding: 2px 8px;
+	border-radius: 0;
+	font-size: 11px;
+	font-weight: 700;
+	letter-spacing: 0.4px;
+	text-transform: uppercase;
+	vertical-align: middle;
+	color: var(--lbbPrimary);
+	background: rgba(var(--lbbPrimaryRgb), 0.1);
+}
+
+// Fields
+.lbbLazyPage .lbbField {
+	& + .lbbField {
+		margin-top: 16px;
+	}
+
+	label {
+		font-size: 14px;
+		font-weight: 600;
+		color: var(--lbbTitle);
+	}
+
+	&.isLocked {
+		input[type='range'],
+		.lbbSwatches {
+			opacity: 0.5;
+		}
+	}
+}
+
+.lbbLazyPage .lbbFieldLabel {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 8px;
+	margin-bottom: 8px;
+}
+
+.lbbLazyPage .lbbFieldRow {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	padding: 12px;
+	border-radius: 0;
+	background: var(--lbbSoft);
+
+	.lbbHelp {
+		margin-top: 4px;
+	}
+}
+
+.lbbLazyPage .lbbValue {
+	padding: 3px 10px;
+	border-radius: 0;
+	font-size: 13px;
+	font-weight: 600;
+	color: var(--lbbPrimary);
+	background: rgba(var(--lbbPrimaryRgb), 0.08);
+	font-variant-numeric: tabular-nums;
+}
+
+.lbbLazyPage .lbbHelp {
+	margin-top: 10px;
+	font-size: 13px;
+	line-height: 1.5;
+	color: #6b7280;
+}
+
+// Range slider
+.lbbLazyPage input[type='range'] {
+	--lbbFill: 50%;
+	width: 100%;
+	height: 6px;
+	margin: 0;
+	border-radius: 99px;
+	appearance: none;
+	background: linear-gradient(to right, var(--lbbPrimary) var(--lbbFill), #e5e7eb var(--lbbFill));
+	cursor: pointer;
+
+	&::-webkit-slider-thumb {
+		appearance: none;
+		width: 20px;
+		height: 20px;
+		border-radius: 50%;
+		background: #fff;
+		border: 3px solid var(--lbbPrimary);
+		box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+	}
+
+	&::-moz-range-thumb {
+		width: 14px;
+		height: 14px;
+		border-radius: 50%;
+		background: #fff;
+		border: 3px solid var(--lbbPrimary);
+	}
+
+	&:disabled {
+		cursor: not-allowed;
+	}
+}
+
+// Toggle switch
+.lbbLazyPage .lbbToggle {
+	position: relative;
+	width: 44px;
+	height: 24px;
+	padding: 0;
+	border: 0;
+	border-radius: 99px;
+	background: #d1d5db;
+	transition: background 0.2s;
+	flex-shrink: 0;
+
+	span {
+		position: absolute;
+		top: 3px;
+		left: 3px;
+		width: 18px;
+		height: 18px;
+		border-radius: 50%;
+		background: #fff;
+		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+		transition: transform 0.2s;
+	}
+
+	&.isOn {
+		background: var(--lbbPrimary);
+
+		span {
+			transform: translateX(20px);
+		}
+	}
+
+	&:focus-visible {
+		outline: 2px solid var(--lbbPrimary);
+		outline-offset: 2px;
+	}
+}
+
+// Thumbnail size tiles
+.lbbLazyPage .lbbSizeGrid {
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	gap: 10px;
+}
+
+.lbbLazyPage .lbbSizeTile {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	padding: 10px 10px;
+	text-align: left;
+	border-radius: 0;
+	background: #fff;
+	border: 1.5px solid var(--lbbBorder);
+	transition: border-color 0.15s, box-shadow 0.15s;
+
+	strong {
+		font-size: 13px;
+		color: var(--lbbTitle);
+	}
+
+	span {
+		font-size: 12px;
+		font-weight: 600;
+		color: var(--lbbPrimary);
+	}
+
+	small {
+		font-size: 11px;
+		color: #6b7280;
+	}
+
+	&:hover {
+		border-color: rgba(var(--lbbPrimaryRgb), 0.5);
+	}
+
+	&.isActive {
+		border-color: var(--lbbPrimary);
+		box-shadow: 0 0 0 3px rgba(var(--lbbPrimaryRgb), 0.12);
+		background: rgba(var(--lbbPrimaryRgb), 0.03);
+	}
+
+	.lbbRecommended {
+		position: absolute;
+		top: -9px;
+		right: 8px;
+		padding: 2px 7px;
+		border-radius: 0;
+		font-size: 10px;
+		font-weight: 700;
+		color: #fff;
+		background: var(--lbbGreen);
+	}
+}
+
+// WebP bulk conversion
+.lbbLazyPage .lbbWebpBulk {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	padding: 12px;
+	border-radius: 0;
+	background: var(--lbbSoft);
+
+	.lbbStatus {
+		align-self: flex-start;
+	}
+}
+
+.lbbLazyPage .lbbStatus.isError {
+	color: #dc2626;
+	background: rgba(220, 38, 38, 0.08);
+}
+
+.lbbLazyPage .lbbProgress {
+	height: 8px;
+	overflow: hidden;
+	border-radius: 0;
+	background: #e5e7eb;
+
+	span {
+		display: block;
+		height: 100%;
+		border-radius: 0;
+		background: linear-gradient(90deg, var(--lbbPrimary), #8c74fd);
+		transition: width 0.4s ease;
+	}
+}
+
+.lbbLazyPage .lbbWebpRow {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	font-size: 13px;
+
+	.lbbGhostBtn:disabled {
+		opacity: 0.6;
+		cursor: default;
+	}
+}
+
+.lbbLazyPage .lbbHelp.isError {
+	color: #dc2626;
+}
+
+// Compatibility card
+.lbbLazyPage .lbbCompatList {
+	margin: 0 0 4px;
+	padding: 0;
+	list-style: none;
+
+	li {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 10px;
+		margin: 0;
+		padding: 10px 0;
+		border-bottom: 1px solid var(--lbbBorder);
+
+		&:last-child {
+			border-bottom: 0;
+		}
+	}
+
+	strong {
+		display: block;
+		font-size: 14px;
+		color: var(--lbbTitle);
+	}
+
+	small {
+		font-size: 12px;
+		color: #6b7280;
+	}
+}
+
+.lbbLazyPage .lbbCompatOk {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	font-weight: 500;
+	color: var(--lbbGreen);
+}
+
+.lbbLazyPage .lbbStatus.isWarn {
+	color: #b45309;
+	background: rgba(245, 158, 11, 0.12);
+}
+
+// Crop position: grid on the left, text on the right
+.lbbLazyPage .lbbCropField {
+	display: flex;
+	align-items: center;
+	gap: 18px;
+
+	.lbbValue {
+		margin-left: 6px;
+	}
+
+	.lbbHelp {
+		margin-top: 6px;
+	}
+}
+
+// Segmented control (loaded effect)
+.lbbLazyPage .lbbSegmented {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 4px;
+	padding: 4px;
+	border-radius: 0;
+	background: #f1f3f8;
+
+	button {
+		flex: 1;
+		min-width: 90px;
+		padding: 9px 12px;
+		border: 0;
+		border-radius: 0;
+		font-size: 13px;
+		font-weight: 500;
+		color: var(--lbbText);
+		background: transparent;
+		transition: background 0.15s, color 0.15s;
+
+		&:hover {
+			color: var(--lbbTitle);
+		}
+
+		&.isActive {
+			color: var(--lbbPrimary);
+			font-weight: 600;
+			background: #fff;
+			box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+		}
+	}
+}
+
+// Loading icon settings
+.lbbLazyPage .lbbIconSettings {
+	margin-top: 16px;
+}
+
+.lbbLazyPage .lbbIconGrid {
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	gap: 10px;
+}
+
+.lbbLazyPage .lbbIconTile {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 10px;
+	padding: 12px 6px 10px;
+	border-radius: 0;
+	color: #374151;
+	background: #fff;
+	border: 1.5px solid var(--lbbBorder);
+	transition: border-color 0.15s, box-shadow 0.15s;
+
+	span:not(.lbbSpinner) {
+		font-size: 11px;
+		font-weight: 500;
+		text-align: center;
+	}
+
+	&:hover {
+		border-color: rgba(var(--lbbPrimaryRgb), 0.5);
+	}
+
+	&.isActive {
+		color: var(--lbbPrimary);
+		border-color: var(--lbbPrimary);
+		box-shadow: 0 0 0 3px rgba(var(--lbbPrimaryRgb), 0.12);
+	}
+
+	&.isLocked .lbbSpinner {
+		opacity: 0.45;
+	}
+
+	em {
+		position: absolute;
+		top: 6px;
+		right: 6px;
+		font-size: 11px;
+		color: #9ca3af;
+	}
+}
+
+.lbbLazyPage .lbbProBadge {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	padding: 2px 8px;
+	border-radius: 0;
+	font-size: 11px;
+	font-weight: 700;
+	color: #fff;
+	background: linear-gradient(135deg, #f59e0b, #ef4444);
+
+	svg {
+		font-size: 10px;
+	}
+}
+
+// Color swatches
+.lbbLazyPage .lbbSwatches {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 8px;
+
+	> button {
+		width: 30px;
+		height: 30px;
+		padding: 0;
+		border-radius: 50%;
+		border: 2px solid #fff;
+		box-shadow: 0 0 0 1px var(--lbbBorder);
+
+		&.isActive {
+			box-shadow: 0 0 0 2px var(--lbbPrimary);
+		}
+	}
+}
+
+.lbbLazyPage .lbbColorInput {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	padding: 3px 10px 3px 3px;
+	border-radius: 0;
+	border: 1px solid var(--lbbBorder);
+	cursor: pointer;
+
+	input[type='color'] {
+		width: 26px;
+		height: 26px;
+		padding: 0;
+		border: 0;
+		border-radius: 50%;
+		background: none;
+		cursor: pointer;
+
+		&::-webkit-color-swatch-wrapper {
+			padding: 0;
+		}
+
+		&::-webkit-color-swatch {
+			border: 0;
+			border-radius: 50%;
+		}
+	}
+
+	span {
+		font-family: monospace;
+		font-size: 12px;
+		font-weight: 400;
+		color: var(--lbbText);
+	}
+}
+
+// Custom loader tile + bar
+.lbbLazyPage .lbbIconTile .lbbPlus {
+	display: grid;
+	place-items: center;
+	width: 26px;
+	height: 26px;
+	font-size: 24px;
+	font-weight: 300;
+	line-height: 1;
+}
+
+.lbbLazyPage .lbbIconTile.isCustom:not(.isActive) {
+	border-style: dashed;
+}
+
+.lbbLazyPage .lbbCustomIconBar {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	margin-top: 12px;
+	padding: 10px 12px;
+	border-radius: 0;
+	background: var(--lbbSoft);
+
+	> span:not(.lbbSpinner) {
+		flex: 1;
+		overflow: hidden;
+		font-size: 12px;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+}
+
+.lbbLazyPage .mt12 {
+	margin-top: 12px;
+}
+
+// Live preview
+.lbbLazyPage .lbbBrowser {
+	overflow: hidden;
+	border-radius: 0;
+	border: 1px solid var(--lbbBorder);
+	background: #fff;
+}
+
+.lbbLazyPage .lbbBrowserBar {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	padding: 9px 12px;
+	background: var(--lbbSoft);
+	border-bottom: 1px solid var(--lbbBorder);
+
+	i {
+		width: 9px;
+		height: 9px;
+		border-radius: 50%;
+		background: #d1d5db;
+
+		&:nth-child(1) {
+			background: #ff5f57;
+		}
+
+		&:nth-child(2) {
+			background: #febc2e;
+		}
+
+		&:nth-child(3) {
+			background: #28c840;
+		}
+	}
+
+	span {
+		margin-left: 8px;
+		padding: 2px 10px;
+		border-radius: 0;
+		font-size: 11px;
+		color: #9ca3af;
+		background: #fff;
+	}
+}
+
+.lbbLazyPage .lbbPreviewGrid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 8px;
+	padding: 10px;
+}
+
+.lbbLazyPage .lbbPreviewTile {
+	position: relative;
+	display: grid;
+	place-items: center;
+	aspect-ratio: 4 / 3;
+	border-radius: 0;
+	overflow: hidden;
+	background: #f1f2f6;
+
+	> * {
+		grid-area: 1 / 1;
+	}
+
+	.lbbPreviewPh,
+	.lbbPreviewImg {
+		display: block;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: object-position 0.35s ease;
+	}
+
+	.lbbPreviewPh {
+
+		&.isBlur {
+			filter: blur(10px) saturate(0.8);
+			transform: scale(1.2);
+			opacity: 0.85;
+		}
+	}
+
+	.lbbPreviewImg {
+
+		&.isWaiting {
+			visibility: hidden;
+		}
+	}
+}
+
+.lbbLazyPage .lbbPreviewNote {
+	margin-top: 12px;
+	font-size: 12px;
+	color: #b45309;
+}
+
+.lbbLazyPage .lbbInfoCard {
+	display: flex;
+	gap: 14px;
+	padding: 14px 16px;
+
+	h4 {
+		font-size: 14px;
+		margin-bottom: 4px;
+	}
+
+	p {
+		font-size: 13px;
+		line-height: 1.5;
+	}
+}
+
+.lbbLazyPage .lbbInfoIcon {
+	display: grid;
+	place-items: center;
+	width: 36px;
+	height: 36px;
+	border-radius: 0;
+	font-size: 18px;
+	color: var(--lbbPrimary);
+	background: rgba(var(--lbbPrimaryRgb), 0.1);
+	flex-shrink: 0;
+}
+
+// Buttons
+.lbbLazyPage .lbbGhostBtn {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 8px 14px;
+	border-radius: 0;
+	font-size: 13px;
+	font-weight: 500;
+	color: var(--lbbText);
+	background: #fff;
+	border: 1px solid var(--lbbBorder);
+
+	&:hover {
+		color: var(--lbbPrimary);
+		border-color: rgba(var(--lbbPrimaryRgb), 0.4);
+	}
+}
+
+.lbbLazyPage .lbbPrimaryBtn {
+	padding: 10px 22px;
+	border: 0;
+	border-radius: 0;
+	font-size: 14px;
+	font-weight: 600;
+	color: #fff;
+	background: var(--lbbPrimary);
+	box-shadow: 0 6px 16px rgba(var(--lbbPrimaryRgb), 0.3);
+
+	&:disabled {
+		opacity: 0.45;
+		box-shadow: none;
+		cursor: default;
+	}
+}
+
+// Sticky save bar
+.lbbLazyPage .lbbSaveBar {
+	position: fixed;
+	right: 24px;
+	bottom: 20px;
+	left: calc(160px + 24px);
+	z-index: 99;
+	max-width: 1180px;
+	margin: 0 auto;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 16px;
+	padding: 12px 14px 12px 22px;
+	border-radius: 0;
+	background: rgba(255, 255, 255, 0.92);
+	backdrop-filter: blur(8px);
+	border: 1px solid var(--lbbBorder);
+	box-shadow: 0 12px 32px rgba(15, 23, 42, 0.12);
+
+	&.isDirty {
+		border-color: rgba(var(--lbbPrimaryRgb), 0.4);
+	}
+}
+
+.lbbLazyPage .lbbSaveStatus {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	font-size: 13px;
+	font-weight: 500;
+
+	svg {
+		color: var(--lbbGreen);
+	}
+}
+
+.lbbLazyPage .lbbSaveActions {
+	display: flex;
+	gap: 10px;
+}
+
+.folded .lbbLazyPage .lbbSaveBar {
+	left: calc(36px + 24px);
+}
+
+// Responsive
+@media (max-width: 1200px) {
+	.lbbLazyPage .lbbLazyGrid {
+		grid-template-columns: 1fr;
+	}
+
+	.lbbLazyPage .lbbLazySide {
+		position: static;
+	}
+}
+
+@media (max-width: 960px) {
+	.lbbLazyPage .lbbAlwaysOn {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	.lbbLazyPage .lbbSizeGrid,
+	.lbbLazyPage .lbbIconGrid {
+		grid-template-columns: repeat(3, 1fr);
+	}
+
+	.lbbLazyPage .lbbSaveBar {
+		left: 24px;
+	}
+}
+
+@media (max-width: 600px) {
+	.lbbLazyPage .lbbHero,
+	.lbbLazyPage .lbbProNotice,
+	.lbbLazyPage .lbbFreeBar {
+		flex-direction: column;
+		align-items: flex-start;
+		padding: 22px;
+	}
+
+	.lbbLazyPage .lbbAlwaysOn,
+	.lbbLazyPage .lbbSizeGrid {
+		grid-template-columns: 1fr 1fr;
+	}
+
+	.lbbLazyPage .lbbSaveBar {
+		left: 12px;
+		right: 12px;
+		flex-direction: column;
+		align-items: stretch;
+	}
+}
+
+// Video tutorial card (opens the YouTube tutorial)
+.lbbLazyPage .lbbTutorialCard {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 12px;
+	padding: 12px;
+	background: #fff;
+	color: inherit;
+	text-decoration: none;
+	transition: box-shadow 0.2s;
+
+	&:hover,
+	&:focus {
+		box-shadow: 0 6px 20px rgba(7, 1, 39, 0.08);
+
+		.lbbTutorialPlay {
+			transform: scale(1.08);
+		}
+	}
+
+	&:focus-visible {
+		outline: 2px solid #146ef5;
+		outline-offset: 2px;
+	}
+}
+
+.lbbLazyPage .lbbTutorialThumb {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+	width: 112px;
+	aspect-ratio: 16 / 9;
+	overflow: hidden;
+	background: radial-gradient(120% 90% at 50% 120%, #146ef5 0%, #0040e3 30%, #070127 75%);
+}
+
+.lbbLazyPage .lbbTutorialLabel {
+	position: absolute;
+	display: none;
+	top: 10px;
+	left: 12px;
+	font-size: 11px;
+	font-weight: 700;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: rgba(255, 255, 255, 0.85);
+}
+
+.lbbLazyPage .lbbTutorialPlay {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	background: #146ef5;
+	color: #fff;
+	box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.18);
+	transition: transform 0.2s;
+
+	svg {
+		width: 15px;
+		height: 15px;
+		margin-left: 2px;
+	}
+}
+
+.lbbLazyPage .lbbTutorialTime {
+	position: absolute;
+	right: 4px;
+	bottom: 4px;
+	padding: 1px 4px;
+	font-size: 10px;
+	font-weight: 600;
+	color: #fff;
+	background: rgba(0, 0, 0, 0.6);
+}
+
+.lbbLazyPage .lbbTutorialText {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 4px;
+
+	strong {
+		font-size: 14px;
+		color: #070127;
+	}
+
+	small {
+		font-size: 12px;
+		line-height: 1.5;
+		color: #4b5565;
+	}
+}
+
+.lbbLazyPage .lbbTutorialLink {
+	margin-top: 2px;
+	font-size: 13px;
+	font-weight: 600;
+	color: #146ef5;
+}

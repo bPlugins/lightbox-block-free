@@ -1,0 +1,216 @@
+// Auto Lightbox settings tab (shares .lbbLazyPage cards, hero and save bar)
+.lbbAutoPage .lbbAutoSkipList {
+	display: grid;
+	gap: 8px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+
+	li {
+		display: flex;
+		align-items: flex-start;
+		gap: 10px;
+		margin: 0;
+		padding: 10px 12px;
+		background: var(--lbbSoft);
+	}
+
+	strong {
+		display: block;
+		font-size: 13px;
+		color: var(--lbbTitle);
+	}
+
+	small {
+		display: block;
+		margin-top: 2px;
+		font-size: 12px;
+		line-height: 1.4;
+	}
+}
+
+// Live preview: a mock post
+.lbbAutoPage .lbbAutoPreview {
+	position: relative;
+	overflow: hidden;
+	background: var(--lbbSoft);
+}
+
+.lbbAutoPage .lbbAutoPost {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	padding: 16px;
+
+	.lbbPreviewLabel {
+		margin-top: 6px;
+		font-size: 11px;
+		font-weight: 700;
+		letter-spacing: 1px;
+		text-transform: uppercase;
+		color: #9ca3af;
+	}
+}
+
+.lbbAutoPage .lbbAutoLine {
+	display: block;
+	height: 8px;
+	background: #e3e7ef;
+
+	&.isTitle {
+		width: 70%;
+		height: 12px;
+		background: #cfd6e3;
+	}
+
+	&.isShort {
+		width: 55%;
+	}
+}
+
+.lbbAutoPage .lbbAutoGallery {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 6px;
+}
+
+.lbbAutoPage .lbbAutoTile {
+	position: relative;
+	display: block;
+	width: 100%;
+	padding: 0;
+	border: 0;
+	background: none;
+	cursor: default;
+	aspect-ratio: 4 / 3;
+
+	img {
+		display: block;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		filter: grayscale(0.6);
+		opacity: 0.7;
+		transition: filter 0.2s, opacity 0.2s, transform 0.2s;
+	}
+
+	.lbbAutoSingle & {
+		aspect-ratio: 16 / 9;
+	}
+
+	&.isOn {
+		cursor: zoom-in;
+
+		img {
+			filter: none;
+			opacity: 1;
+		}
+
+		&:hover img {
+			transform: scale(1.02);
+		}
+
+		.lbbAutoTileBadge {
+			color: #fff;
+			background: var(--lbbPrimary);
+		}
+	}
+
+	&:focus-visible {
+		outline: 3px solid var(--lbbPrimary);
+		outline-offset: 2px;
+	}
+}
+
+.lbbAutoPage .lbbAutoTileBadge {
+	position: absolute;
+	top: 6px;
+	right: 6px;
+	display: grid;
+	place-items: center;
+	width: 24px;
+	height: 24px;
+	font-size: 12px;
+	color: #6b7280;
+	background: rgba(255, 255, 255, 0.85);
+
+	svg {
+		width: 14px;
+		height: 14px;
+	}
+}
+
+// Mock lightbox
+.lbbAutoPage .lbbAutoModal {
+	position: absolute;
+	inset: 0;
+	z-index: 2;
+	display: grid;
+	place-items: center;
+	padding: 36px 40px;
+	background: rgba(7, 1, 39, 0.92);
+	animation: lbbAutoIn 0.2s ease-out;
+
+	img {
+		max-width: 100%;
+		max-height: 100%;
+		box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+	}
+}
+
+.lbbAutoPage .lbbAutoClose,
+.lbbAutoPage .lbbAutoNav {
+	position: absolute;
+	display: grid;
+	place-items: center;
+	width: 32px;
+	height: 32px;
+	padding: 0;
+	border: 0;
+	font-size: 22px;
+	line-height: 1;
+	color: #fff;
+	background: rgba(255, 255, 255, 0.12);
+	cursor: pointer;
+
+	&:hover {
+		background: rgba(255, 255, 255, 0.25);
+	}
+}
+
+.lbbAutoPage .lbbAutoClose {
+	top: 6px;
+	right: 6px;
+}
+
+.lbbAutoPage .lbbAutoNav {
+	top: 50%;
+	transform: translateY(-50%);
+
+	&.isPrev {
+		left: 4px;
+	}
+
+	&.isNext {
+		right: 4px;
+	}
+}
+
+.lbbAutoPage .lbbAutoCount {
+	position: absolute;
+	top: 12px;
+	left: 12px;
+	font-size: 12px;
+	color: rgba(255, 255, 255, 0.8);
+}
+
+@keyframes lbbAutoIn {
+	from {
+		opacity: 0;
+	}
+}
+
+// Pro-only row
+.lbbAutoPage .lbbFieldRow.isLocked .lbbToggle {
+	opacity: 0.5;
+}

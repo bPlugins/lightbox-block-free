@@ -11,6 +11,7 @@ import Layout from './Layout';
 import LazyLoadProNotice from './LazyLoad/LazyLoadProNotice';
 import SettingsLayout from './Settings/SettingsLayout';
 import PaginationProNotice from './Pagination/PaginationProNotice';
+import AutoLightboxSettings from './AutoLightbox/AutoLightboxSettings';
 import { demoInfo, pricingInfo, settingsInfo, welcomeInfo } from '../utils/data';  // ← added welcomeInfo
 
 const App = (props) => {
@@ -27,6 +28,7 @@ const App = (props) => {
                 <Route path='settings' element={<SettingsLayout />}>
                     <Route index element={<Navigate to='lazy-load' replace />} />
                     <Route path='lazy-load' element={<LazyLoadProNotice {...props} />} />
+                    <Route path='auto-lightbox' element={<AutoLightboxSettings {...props} />} />
                     <Route path='pagination' element={<PaginationProNotice {...props} />} />
                 </Route>
                 <Route path='lazy-load' element={<Navigate to='/settings/lazy-load' replace />} />

@@ -14,6 +14,7 @@ module.exports = {
 		...defaultConfig.entry(),
 		'admin-dashboard': './src/admin/dashboard.js',
 		'custom-popup': './src/custom-popup.js',
+		'auto-lightbox': './src/auto-lightbox.js',
 	},
 	plugins: [
 		...plugins,
