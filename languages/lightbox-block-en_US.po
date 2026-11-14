@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: All In One Lightbox – show any media in beautiful popups 1.2.2\n"
+"Project-Id-Version: All In One Lightbox – show any media in beautiful popups 1.3.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/lightbox-block\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-27T08:29:24+00:00\n"
+"POT-Creation-Date: 2026-11-14T09:38:50+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: lightbox-block\n"
@@ -47,6 +47,16 @@ msgstr ""
 #: inc/AdminMenu.php:43
 #: inc/AdminMenu.php:44
 msgid "Demo & Help"
+msgstr ""
+
+#: inc/AutoLightbox.php:275
+msgid "Open image in lightbox"
+msgstr ""
+
+#. translators: %s: image alt text
+#: inc/AutoLightbox.php:277
+#, php-format
+msgid "%s, open in lightbox"
 msgstr ""
 
 #: inc/custom-shortcode.php:21
@@ -103,7 +113,7 @@ msgstr ""
 msgid "This server cannot create WebP images."
 msgstr ""
 
-#: index.php:164
+#: index.php:165
 msgid "Dashboard!"
 msgstr ""
 
@@ -256,6 +266,14 @@ msgid "Loading, WebP, loaders"
 msgstr ""
 
 #: build/admin-dashboard.js:2
+msgid "Auto Lightbox"
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "Image & Gallery blocks, site-wide"
+msgstr ""
+
+#: build/admin-dashboard.js:2
 msgid "Pagination"
 msgstr ""
 
@@ -321,6 +339,190 @@ msgstr ""
 
 #: build/admin-dashboard.js:2
 msgid "Big galleries stay fast and tidy: show a few items first, then the rest with a Load More button, infinite scroll or page numbers. The lightbox still browses every item."
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "Linked to a page"
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "Images linked to another page or URL keep their link."
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "\"no-lightbox\" class"
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "Add it in Block → Advanced → Additional CSS class."
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "Lightbox blocks"
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "Images inside our own block use that block's lightbox."
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "Open preview lightbox"
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "No lightbox"
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "Image block"
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "Gallery block"
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "Preview lightbox"
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "Close"
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "Previous"
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "Next"
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "Featured Image"
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "The featured image of the post or page being viewed. Featured images linked to their post (archives, lists) keep their link."
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "[gallery] Shortcode"
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "Galleries made with the [gallery] shortcode (Classic editor) open as one set. Their images link to the full-size file."
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "Widgets"
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "Classic Image, Text and Gallery widgets. Image and Gallery blocks in widget areas are covered by the options above."
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "WooCommerce Product Gallery"
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "The product images at the top of the product page (classic gallery or Product Gallery block) open in this lightbox instead of WooCommerce's own."
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "Site-wide"
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "Open every Image and Gallery block image in a lightbox, old posts included. No block to insert."
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "Active"
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "Off"
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "Works with the blocks you already use"
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "Nothing to change in your posts. WordPress's own \"Expand on click\" is turned off for these images, so only one lightbox opens. Scripts load only on pages that have such an image."
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "Apply To"
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "Which images open in the lightbox."
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "Image Block"
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "Single images, and images added with the Classic editor. Each opens on its own; images linked to their file open the file."
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "Gallery Block"
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "All images of a gallery open as one set, with Next / Previous and thumbnails."
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "Pro"
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "Skipped Automatically"
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "These images are left as they are."
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "Live Preview"
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "Click an image to try it."
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "Saving…"
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "Settings saved"
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "Could not save. Please try again."
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "You have unsaved changes"
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "All changes saved"
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "Reset to defaults"
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "Save Changes"
 msgstr ""
 
 #: build/block.json

@@ -1,6 +1,6 @@
 {
 	"name": "lightbox-block",
-	"version": "1.2.2",
+	"version": "1.3.0",
 	"description": "Lightbox block is an excellent choice for your WordPress Lightbox Block",
 	"main": "index.js",
 	"scripts": {
