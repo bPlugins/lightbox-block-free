@@ -170,6 +170,7 @@ Please report security bugs found in the source code of the LightBox Block plugi
 = 1.3.0 - 14 Nov, 2026 =
 * New: Auto Lightbox (Lightbox → Settings → Auto Lightbox). One switch opens every WordPress Image and Gallery block image in the lightbox across the whole site, old posts included. No block to insert.
 * New: Auto Lightbox also opens images added with the Classic editor (classic posts, Classic block, images with a caption).
+* New: Auto Lightbox for WooCommerce product descriptions: images and galleries in the Description tab open in the lightbox, with their own on/off switch in the new WooCommerce card.
 * Improvement: Gallery images open as one set with Next / Previous and thumbnails; images linked to another page keep their link, and the "no-lightbox" CSS class leaves an image out.
 * Improvement: WordPress's own "Expand on click" is turned off for these images, so only one lightbox opens.
 * Improvement: Auto Lightbox images can be opened from the keyboard, and the script loads only on pages that have such an image.

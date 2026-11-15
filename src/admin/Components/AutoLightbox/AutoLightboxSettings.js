@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import apiFetch from '@wordpress/api-fetch';
 import { __ } from '@wordpress/i18n';
 
-import { checkIcon, layersIcon, expandIcon, lockIcon } from '../LazyLoad/icons';
+import { checkIcon, layersIcon, expandIcon, lockIcon, cartIcon } from '../LazyLoad/icons';
 import './settingsBase.scss';
 import './autoLightbox.scss';
 
@@ -31,7 +31,7 @@ const Toggle = ({ checked, onChange, label, disabled }) => <button
 ><span /></button>;
 
 // Same as LBBAutoLightbox::defaults() in PHP
-const DEFAULTS = { enabled: false, image: true, gallery: true };
+const DEFAULTS = { enabled: false, image: true, gallery: true, wooDesc: true };
 
 const SKIPPED = [
     { title: __('Linked to a page', 'lightbox-block'), text: __('Images linked to another page or URL keep their link.', 'lightbox-block') },
@@ -86,15 +86,30 @@ const LivePreview = ({ enabled, image, gallery }) => {
 };
 
 // Lightbox → Settings → Auto Lightbox (Free): core Image / Gallery images open in our lightbox site-wide
-// Lightbox Block Pro adds these places
-const PRO_ROWS = [
-    { label: __('Featured Image', 'lightbox-block'), help: __('The featured image of the post or page being viewed. Featured images linked to their post (archives, lists) keep their link.', 'lightbox-block') },
-    { label: __('[gallery] Shortcode', 'lightbox-block'), help: __('Galleries made with the [gallery] shortcode (Classic editor) open as one set. Their images link to the full-size file.', 'lightbox-block') },
-    { label: __('Widgets', 'lightbox-block'), help: __('Classic Image, Text and Gallery widgets. Image and Gallery blocks in widget areas are covered by the options above.', 'lightbox-block') },
-    { label: __('WooCommerce Product Gallery', 'lightbox-block'), help: __('The product images at the top of the product page (classic gallery or Product Gallery block) open in this lightbox instead of WooCommerce\'s own.', 'lightbox-block') },
+// Settings rows, grouped by where the images are. pro: Lightbox Block Pro only
+const SECTIONS = wooActive => [
+    {
+        title: __('Posts & Pages', 'lightbox-block'), text: __('Images inside your posts and pages.', 'lightbox-block'), rows: [
+            { key: 'image', label: __('Post Images', 'lightbox-block'), help: __('On: single images in posts and pages open in the lightbox, also images added with the Classic editor.', 'lightbox-block') },
+            { key: 'gallery', label: __('Post Galleries', 'lightbox-block'), help: __('On: each gallery in a post or page opens as one set, with Next / Previous and thumbnails.', 'lightbox-block') },
+            { key: 'featured', pro: true, label: __('Post Featured Image', 'lightbox-block'), help: __('On: the featured image at the top of a post or page opens in the lightbox. In blog lists it still links to the post.', 'lightbox-block') },
+        ],
+    },
+    {
+        title: __('Shortcode & Widgets', 'lightbox-block'), text: __('Older Classic editor galleries and your sidebar or footer.', 'lightbox-block'), rows: [
+            { key: 'shortcode', pro: true, label: __('Gallery Shortcode [gallery]', 'lightbox-block'), help: __('On: galleries made with the [gallery] shortcode (Classic editor → Add Media → Create Gallery) open as one set.', 'lightbox-block') },
+            { key: 'widgets', pro: true, label: __('Widget Images', 'lightbox-block'), help: __('On: images in sidebar and footer widgets (Image, Text and Gallery widgets) open in the lightbox.', 'lightbox-block') },
+        ],
+    },
+    {
+        title: __('WooCommerce', 'lightbox-block'), icon: cartIcon, text: wooActive ? __('Images on your product pages.', 'lightbox-block') : __('WooCommerce is not active. These options work once it is.', 'lightbox-block'), rows: [
+            { key: 'wooDesc', label: __('Product Description Images', 'lightbox-block'), help: __('On: images and galleries in the product description (Description tab) open in the lightbox.', 'lightbox-block') },
+            { key: 'woo', pro: true, label: __('Product Gallery', 'lightbox-block'), help: __("On: the main product images at the top of the product page open in this lightbox instead of WooCommerce's own.", 'lightbox-block') },
+        ],
+    },
 ];
 
-const AutoLightboxSettings = ({ autoLightbox }) => {
+const AutoLightboxSettings = ({ autoLightbox, wooActive }) => {
     const navigate = useNavigate();
     const initial = { ...DEFAULTS, ...(autoLightbox || {}) };
     const [settings, setSettings] = useState(initial);
@@ -153,39 +168,24 @@ const AutoLightboxSettings = ({ autoLightbox }) => {
 
         <div className='lbbLazyGrid'>
             <div className='lbbLazyMain'>
-                <section className={`lbbCard${enabled ? '' : ' isMuted'}`}>
+                {SECTIONS(wooActive).map(section => <section key={section.title} className={`lbbCard${enabled ? '' : ' isMuted'}`}>
                     <div className='lbbCardHead'>
                         <div>
-                            <h3>{__('Apply To', 'lightbox-block')}</h3>
-                            <p>{__('Which images open in the lightbox.', 'lightbox-block')}</p>
+                            <h3 className='lbbAutoCardTitle'>{section.icon && <span>{section.icon}</span>}{section.title}</h3>
+                            <p>{section.text}</p>
                         </div>
                     </div>
-
-                    <div className='lbbField lbbFieldRow'>
-                        <div>
-                            <label>{__('Image Block', 'lightbox-block')}</label>
-                            <p className='lbbHelp'>{__('Single images, and images added with the Classic editor. Each opens on its own; images linked to their file open the file.', 'lightbox-block')}</p>
-                        </div>
-                        <Toggle checked={image} onChange={val => update('image', val)} label={__('Image Block', 'lightbox-block')} />
-                    </div>
-
-                    <div className='lbbField lbbFieldRow'>
-                        <div>
-                            <label>{__('Gallery Block', 'lightbox-block')}</label>
-                            <p className='lbbHelp'>{__('All images of a gallery open as one set, with Next / Previous and thumbnails.', 'lightbox-block')}</p>
-                        </div>
-                        <Toggle checked={gallery} onChange={val => update('gallery', val)} label={__('Gallery Block', 'lightbox-block')} />
-                    </div>
-
-                    {/* Pro rows: shown locked, a click leads to the pricing page */}
-                    {PRO_ROWS.map(row => <div key={row.label} className='lbbField lbbFieldRow isLocked'>
-                        <div>
-                            <div className='lbbFieldLabel'><label>{row.label}</label><span className='lbbProBadge'>{lockIcon} {__('Pro', 'lightbox-block')}</span></div>
-                            <p className='lbbHelp'>{row.help}</p>
-                        </div>
-                        <Toggle checked={false} onChange={() => navigate('/pricing')} label={row.label} />
-                    </div>)}
-                </section>
+                    {section.rows.map(row => {
+                        const locked = !!row.pro;
+                        return <div key={row.key} className={`lbbField lbbFieldRow${locked ? ' isLocked' : ''}`}>
+                            <div>
+                                <div className='lbbFieldLabel'><label>{row.label}</label>{locked && <span className='lbbProBadge'>{lockIcon} {__('Pro', 'lightbox-block')}</span>}</div>
+                                <p className='lbbHelp'>{row.help}</p>
+                            </div>
+                            <Toggle checked={!locked && !!settings[row.key]} onChange={val => locked ? navigate('/pricing') : update(row.key, val)} label={row.label} />
+                        </div>;
+                    })}
+                </section>)}
 
                 <section className='lbbCard'>
                     <div className='lbbCardHead'>

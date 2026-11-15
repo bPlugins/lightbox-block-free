@@ -20,6 +20,8 @@ if ( ! class_exists( 'LBBAutoLightbox' ) ) {
 
         private static $group = 0;
 
+        private static $settings = [];
+
         public function __construct() {
             add_action( 'init', [ $this, 'register' ] );
             add_action( 'init', [ $this, 'hook' ], 20 );
@@ -30,6 +32,7 @@ if ( ! class_exists( 'LBBAutoLightbox' ) ) {
                 'enabled' => false, // off by default: an update never changes a live site on its own
                 'image'   => true,
                 'gallery' => true,
+                'wooDesc' => true,  // WooCommerce product description images (Free)
             ];
         }
 
@@ -44,6 +47,7 @@ if ( ! class_exists( 'LBBAutoLightbox' ) ) {
                 'enabled' => rest_sanitize_boolean( $value['enabled'] ),
                 'image'   => rest_sanitize_boolean( $value['image'] ),
                 'gallery' => rest_sanitize_boolean( $value['gallery'] ),
+                'wooDesc' => rest_sanitize_boolean( $value['wooDesc'] ),
             ];
         }
 
@@ -61,6 +65,7 @@ if ( ! class_exists( 'LBBAutoLightbox' ) ) {
                             'enabled' => [ 'type' => 'boolean' ],
                             'image'   => [ 'type' => 'boolean' ],
                             'gallery' => [ 'type' => 'boolean' ],
+                            'wooDesc' => [ 'type' => 'boolean' ],
                         ],
                     ],
                 ],
@@ -69,14 +74,14 @@ if ( ! class_exists( 'LBBAutoLightbox' ) ) {
 
         // Nothing is hooked while the feature is off
         public function hook() {
-            $settings = self::get();
-            if ( ! $settings['enabled'] || ( ! $settings['image'] && ! $settings['gallery'] ) || is_admin() ) {
+            $settings = self::$settings = self::get();
+            if ( ! $settings['enabled'] || ( ! $settings['image'] && ! $settings['gallery'] && ! $settings['wooDesc'] ) || is_admin() ) {
                 return;
             }
             add_filter( 'render_block_data', [ $this, 'decide' ], 10, 3 );
             add_filter( 'render_block_core/image', [ $this, 'renderImage' ], 20, 2 );
             add_filter( 'render_block_core/gallery', [ $this, 'renderGallery' ], 20, 2 );
-            if ( $settings['image'] ) {
+            if ( $settings['image'] || $settings['wooDesc'] ) {
                 add_filter( 'render_block', [ $this, 'renderClassic' ], 20, 2 );
             }
         }
@@ -95,10 +100,9 @@ if ( ! class_exists( 'LBBAutoLightbox' ) ) {
             if ( self::$paused || is_feed() || self::excluded( $parsed['attrs'] ?? [] ) ) {
                 return $parsed;
             }
-            $settings = self::get();
 
             if ( 'core/gallery' === $name ) {
-                if ( $settings['gallery'] ) {
+                if ( self::on( 'gallery' ) ) {
                     $parsed['attrs'][ self::KEY ] = 'yes';
                 }
                 return $parsed;
@@ -108,7 +112,7 @@ if ( ! class_exists( 'LBBAutoLightbox' ) ) {
             if ( $inGallery ) {
                 $mode = empty( $parent->parsed_block['attrs'][ self::KEY ] ) ? '' : 'gallery';
             } else {
-                $mode = $settings['image'] ? 'single' : '';
+                $mode = self::on( 'image' ) ? 'single' : '';
             }
             if ( $mode ) {
                 $parsed['attrs'][ self::KEY ] = $mode;
@@ -137,7 +141,7 @@ if ( ! class_exists( 'LBBAutoLightbox' ) ) {
             if ( null !== $name && 'core/freeform' !== $name && 'core/paragraph' !== $name ) {
                 return $html;
             }
-            if ( self::$paused || is_feed() || ! is_string( $html ) || ( false === stripos( $html, '<img' ) && false === stripos( $html, '<a' ) ) ) {
+            if ( self::$paused || is_feed() || ! self::on( 'image' ) || ! is_string( $html ) || ( false === stripos( $html, '<img' ) && false === stripos( $html, '<a' ) ) ) {
                 return $html;
             }
 
@@ -243,6 +247,11 @@ if ( ! class_exists( 'LBBAutoLightbox' ) ) {
             $path = (string) wp_parse_url( $href, PHP_URL_PATH );
 
             return (bool) preg_match( self::IMAGE_EXT, $path );
+        }
+
+        // "Post Images" / "Post Galleries" decide for posts and pages; on a WooCommerce product, "Product Description Images" decides both
+        private static function on( $key ) {
+            return ! empty( self::$settings[ 'product' === get_post_type() ? 'wooDesc' : $key ] );
         }
 
         // "no-lightbox" class on a classic <img> or <a>

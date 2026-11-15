@@ -5,7 +5,7 @@ import { elementorTabIcon, gutenbergTabIcon, phpTabIcon, shortcodeTabIcon } from
 const slug = 'lightbox-block';
 
 export const dashboardInfo = (info) => {
-    const { version, isPremium, hasPro, adminUrl, licenseActiveNonce, deleteDataOnUninstall = false, uninstallNonce = '', autoLightbox = {} } = info;
+    const { version, isPremium, hasPro, adminUrl, licenseActiveNonce, deleteDataOnUninstall = false, uninstallNonce = '', autoLightbox = {}, wooActive = false } = info;
 
 
     const proSuffix = isPremium ? ' Pro' : '';
@@ -18,6 +18,7 @@ export const dashboardInfo = (info) => {
         version,
         isPremium,
         autoLightbox,
+        wooActive,
         hasPro,
         displayOurPlugins: true,
         media: {

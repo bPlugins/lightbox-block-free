@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-14T09:38:50+00:00\n"
+"POT-Creation-Date: 2026-11-15T02:31:56+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: lightbox-block\n"
@@ -49,12 +49,12 @@ msgstr ""
 msgid "Demo & Help"
 msgstr ""
 
-#: inc/AutoLightbox.php:275
+#: inc/AutoLightbox.php:284
 msgid "Open image in lightbox"
 msgstr ""
 
 #. translators: %s: image alt text
-#: inc/AutoLightbox.php:277
+#: inc/AutoLightbox.php:286
 #, php-format
 msgid "%s, open in lightbox"
 msgstr ""
@@ -398,38 +398,6 @@ msgid "Next"
 msgstr ""
 
 #: build/admin-dashboard.js:2
-msgid "Featured Image"
-msgstr ""
-
-#: build/admin-dashboard.js:2
-msgid "The featured image of the post or page being viewed. Featured images linked to their post (archives, lists) keep their link."
-msgstr ""
-
-#: build/admin-dashboard.js:2
-msgid "[gallery] Shortcode"
-msgstr ""
-
-#: build/admin-dashboard.js:2
-msgid "Galleries made with the [gallery] shortcode (Classic editor) open as one set. Their images link to the full-size file."
-msgstr ""
-
-#: build/admin-dashboard.js:2
-msgid "Widgets"
-msgstr ""
-
-#: build/admin-dashboard.js:2
-msgid "Classic Image, Text and Gallery widgets. Image and Gallery blocks in widget areas are covered by the options above."
-msgstr ""
-
-#: build/admin-dashboard.js:2
-msgid "WooCommerce Product Gallery"
-msgstr ""
-
-#: build/admin-dashboard.js:2
-msgid "The product images at the top of the product page (classic gallery or Product Gallery block) open in this lightbox instead of WooCommerce's own."
-msgstr ""
-
-#: build/admin-dashboard.js:2
 msgid "Site-wide"
 msgstr ""
 
@@ -454,27 +422,87 @@ msgid "Nothing to change in your posts. WordPress's own \"Expand on click\" is t
 msgstr ""
 
 #: build/admin-dashboard.js:2
-msgid "Apply To"
+msgid "Posts & Pages"
 msgstr ""
 
 #: build/admin-dashboard.js:2
-msgid "Which images open in the lightbox."
+msgid "Images inside your posts and pages."
 msgstr ""
 
 #: build/admin-dashboard.js:2
-msgid "Image Block"
+msgid "Post Images"
 msgstr ""
 
 #: build/admin-dashboard.js:2
-msgid "Single images, and images added with the Classic editor. Each opens on its own; images linked to their file open the file."
+msgid "On: single images in posts and pages open in the lightbox, also images added with the Classic editor."
 msgstr ""
 
 #: build/admin-dashboard.js:2
-msgid "Gallery Block"
+msgid "Post Galleries"
 msgstr ""
 
 #: build/admin-dashboard.js:2
-msgid "All images of a gallery open as one set, with Next / Previous and thumbnails."
+msgid "On: each gallery in a post or page opens as one set, with Next / Previous and thumbnails."
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "Post Featured Image"
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "On: the featured image at the top of a post or page opens in the lightbox. In blog lists it still links to the post."
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "Shortcode & Widgets"
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "Older Classic editor galleries and your sidebar or footer."
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "Gallery Shortcode [gallery]"
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "On: galleries made with the [gallery] shortcode (Classic editor → Add Media → Create Gallery) open as one set."
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "Widget Images"
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "On: images in sidebar and footer widgets (Image, Text and Gallery widgets) open in the lightbox."
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "WooCommerce"
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "Images on your product pages."
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "WooCommerce is not active. These options work once it is."
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "Product Description Images"
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "On: images and galleries in the product description (Description tab) open in the lightbox."
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "Product Gallery"
+msgstr ""
+
+#: build/admin-dashboard.js:2
+msgid "On: the main product images at the top of the product page open in this lightbox instead of WooCommerce's own."
 msgstr ""
 
 #: build/admin-dashboard.js:2

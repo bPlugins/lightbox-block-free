@@ -78,6 +78,7 @@ if(!class_exists('LBB_Lightbox_Admin_Menu')) {
                     'version' => LBB_LIGHTBOX_PLUGIN_VERSION,
                     'adminUrl' => admin_url(),
                     'autoLightbox' => class_exists( 'LBBAutoLightbox' ) ? LBBAutoLightbox::get() : [],
+                    'wooActive' => class_exists( 'WooCommerce' ),
                 ] ) ); ?>'
             >
             </div>

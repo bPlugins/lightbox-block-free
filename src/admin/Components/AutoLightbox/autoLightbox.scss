@@ -214,3 +214,33 @@
 .lbbAutoPage .lbbFieldRow.isLocked .lbbToggle {
 	opacity: 0.5;
 }
+
+// Card title with an icon (WooCommerce card)
+.lbbAutoPage .lbbAutoCardTitle {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+
+	span {
+		display: flex;
+		width: 18px;
+		height: 18px;
+		color: #146ef5;
+
+		svg {
+			width: 100%;
+			height: 100%;
+		}
+	}
+}
+
+// Pro badge right after the label, at the same place on every row
+.lbbAutoPage .lbbFieldRow > div:first-child {
+	flex: 1;
+	min-width: 0;
+}
+
+.lbbAutoPage .lbbFieldRow .lbbFieldLabel {
+	justify-content: flex-start;
+	margin-bottom: 0;
+}

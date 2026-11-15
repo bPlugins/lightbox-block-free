@@ -13,3 +13,5 @@ export const crownIcon = <svg viewBox='0 0 24 24' fill='none' stroke='currentCol
 export const pagesIcon = <svg viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round'><rect x='3' y='4' width='7' height='7' rx='1.5' /><rect x='14' y='4' width='7' height='7' rx='1.5' /><rect x='3' y='15' width='7' height='5' rx='1.5' /><path d='M15 17.5h6M18 14.5v6' /></svg>;
 
 export const expandIcon = <svg viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round'><path d='M15 3h6v6' /><path d='M9 21H3v-6' /><path d='M21 3l-7 7' /><path d='M3 21l7-7' /></svg>;
+
+export const cartIcon = <svg viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round'><circle cx='9' cy='20' r='1.4' /><circle cx='18' cy='20' r='1.4' /><path d='M2 3h3l2.7 12.4a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 2-1.5L21 8H6' /></svg>;
